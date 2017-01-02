@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "MONGODB_URI=mongodb://localhost/portamento-test mocha",
+    "test:run": "mocha",
+    "test:watch": "npm run test:run -- -w",
+    "start": "nodemon server.js",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.5",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "eslint": "^3.12.2",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0"
+  }
+}
