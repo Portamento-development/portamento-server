@@ -5,11 +5,15 @@ const bcrypt = require('bcryptjs');
 const schema = new Schema({
     username: {type: String, required: true},
     password: {type: String, required: true},
+    patchId: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Patch',
+    }],
     followingId: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
-    patchId: [{
+    favoriteId: [{
         type: Schema.Types.ObjectId,
         ref: 'Patch',
     }]
