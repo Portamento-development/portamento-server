@@ -8,7 +8,8 @@ const request = chai.request(app);
 describe('Patch CRUD routes', () => {
     const fakePatch = {
         name: 'testFred',
-        settings: 'settings'
+        favorites: 0,
+        votes: 0
     };
 
     it('POSTS a patch', done => {
@@ -16,8 +17,10 @@ describe('Patch CRUD routes', () => {
             .post('/api/patchs')
             .send(fakePatch)
             .then(res => {
+                console.log('res', res.body);
                 fakePatch.__v = res.body.__v;
                 fakePatch._id = res.body._id;
+                console.log('fakePatch', fakePatch);
                 assert.deepEqual(res.body, fakePatch);
                 done();
             })
