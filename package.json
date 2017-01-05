@@ -8,7 +8,7 @@
     "test": "MONGODB_URI=mongodb://localhost/portamento-test mocha",
     "test:run": "mocha",
     "test:watch": "npm run test:run -- -w",
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "lint": "eslint ."
   },
   "author": "",
