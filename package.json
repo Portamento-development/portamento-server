@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "pretest": "npm run lint",
     "test": "MONGODB_URI=mongodb://localhost/portamento-test mocha",
