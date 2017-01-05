@@ -54,19 +54,19 @@
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _angularUiRouter = __webpack_require__(21);
+	var _angularUiRouter = __webpack_require__(25);
 	
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 	
-	var _services = __webpack_require__(22);
+	var _services = __webpack_require__(26);
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _routes = __webpack_require__(26);
+	var _routes = __webpack_require__(31);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _angularUiRouterDefault = __webpack_require__(27);
+	var _angularUiRouterDefault = __webpack_require__(32);
 	
 	var _angularUiRouterDefault2 = _interopRequireDefault(_angularUiRouterDefault);
 	
@@ -33589,7 +33589,8 @@
 	var map = {
 		"./app-header/app-header.js": 8,
 		"./app/app.js": 14,
-		"./synth/synth.js": 16
+		"./synth/synth.js": 16,
+		"./users/users.js": 21
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -33646,12 +33647,14 @@
 	        };
 	        if (_this.action === 'signup') {
 	            authService.signup(_this.credentials).then(function (res) {
+	                console.log('signed up as', res);
 	                _this.currentUser = res;
 	            }).catch(function (err) {
 	                console.log('signup catch', err);
 	            });
 	        } else if (_this.action === 'signin') {
 	            authService.signin(_this.credentials).then(function (res) {
+	                console.log('signed in as', res);
 	                _this.currentUser = res;
 	            }).catch(function (err) {
 	                console.log('signup catch', err);
@@ -33664,7 +33667,7 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h1>Portamento</h1>\n    <div>\n        <label>\n            <input name=\"login\" type=\"radio\" ng-model=\"$ctrl.action\" value=\"signin\">\n            Sign in\n        </label>\n        <label>\n            <input name=\"login\" type=\"radio\" ng-model=\"$ctrl.action\" value=\"signup\">\n            Sign up\n        </label>\n        <label>Username:</label>\n        <input ng-model=\"$ctrl.username\">\n        <label>Password:</label>\n        <input ng-model=\"$ctrl.password\">\n        <button ng-click=\"$ctrl.login()\">Submit</button>\n        <h4>Signed in as: {{ $ctrl.currentUser }}</h4>\n    </div>\n</section>";
+	module.exports = "<section>\n    <h1>Portamento</h1>\n    <a ui-sref=\"users\">User Profile</a>\n    <div>\n        <label>\n            <input name=\"login\" type=\"radio\" ng-model=\"$ctrl.action\" value=\"signin\">\n            Sign in\n        </label>\n        <label>\n            <input name=\"login\" type=\"radio\" ng-model=\"$ctrl.action\" value=\"signup\">\n            Sign up\n        </label>\n        <label>Username:</label>\n        <input ng-model=\"$ctrl.username\">\n        <label>Password:</label>\n        <input type=\"password\" ng-model=\"$ctrl.password\">\n        <button ng-click=\"$ctrl.login()\">Submit</button>\n        <h4>Signed in as: {{ $ctrl.currentUser.username }}</h4>\n    </div>\n</section>";
 
 /***/ },
 /* 10 */
@@ -34038,7 +34041,7 @@
 /* 15 */
 /***/ function(module, exports) {
 
-	module.exports = "<header>\n    <app-header></app-header>\n</header>\n<synth></synth>";
+	module.exports = "<header>\n    <app-header></app-header>\n</header>\n<!--<ui-view></ui-view>-->\n<synth></synth>";
 
 /***/ },
 /* 16 */
@@ -34074,14 +34077,22 @@
 	controller.$inject = ['$window'];
 	
 	function controller() {
+	    var _this = this;
+	
 	    this.styles = _synth4.default;
 	
 	    this.notes = [{
 	        note: 'C3',
 	        keyCode: 65
 	    }, {
+	        note: 'C#3',
+	        keyCode: 87
+	    }, {
 	        note: 'D3',
 	        keyCode: 83
+	    }, {
+	        note: 'D#3',
+	        keyCode: 69
 	    }, {
 	        note: 'E3',
 	        keyCode: 68
@@ -34089,17 +34100,41 @@
 	        note: 'F3',
 	        keyCode: 70
 	    }, {
+	        note: 'F#3',
+	        keyCode: 84
+	    }, {
 	        note: 'G3',
 	        keyCode: 71
 	    }, {
+	        note: 'G#3',
+	        keyCode: 89
+	    }, {
 	        note: 'A3',
 	        keyCode: 72
+	    }, {
+	        note: 'A#3',
+	        keyCode: 85
 	    }, {
 	        note: 'B3',
 	        keyCode: 74
 	    }, {
 	        note: 'C4',
 	        keyCode: 75
+	    }, {
+	        note: 'C#4',
+	        keyCode: 79
+	    }, {
+	        note: 'D4',
+	        keyCode: 76
+	    }, {
+	        note: 'D#4',
+	        keyCode: 80
+	    }, {
+	        note: 'E4',
+	        keyCode: 186
+	    }, {
+	        note: 'F4',
+	        keyCode: 222
 	    }];
 	
 	    this.synth = new _tone2.default.PolySynth(6, _tone2.default.Synth, {
@@ -34108,55 +34143,35 @@
 	        }
 	    }).toMaster();
 	
-	    // const notes = ['E3', 'D3', 'C3', 'D3', 'E3', 'E3', 'E3'];
-	    // var counter = 0;
+	    this.updateMatrix = function (col, row) {
+	        if (this.sequenceMatrix[col][row] === 1) this.sequenceMatrix[col][row] = 0;else this.sequenceMatrix[col][row] = 1;
+	        // console.log(this.sequenceMatrix);
+	    };
 	
-	    // this.sequence = new Tone.Sequence(function(notes) {
-	    //     // if ( prevNote) this.synth.triggerRelease(prevNote);
-	    //     console.log(notes[counter]);
-	    //     counter++;
-	    //     // this.synth.triggerAttack(note);
-	    //     // const prevNote = note;
-	    // }, notes, '4n');
+	    this.toggleSelect = function () {
+	        console.log('hit');
+	    };
 	
+	    this.sequenceMatrix = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
 	
-	    // this.sequence.start();
-	    // this.sequence.loop = 8;
-	    // this.sequence.loopEnd = '10s';
-	
-	
-	    // var noteNames = ['F#', 'E', 'C#', 'A'];
-	    // const sequencematrix = [[0,0,0,1],[0,0,0,1],[0,0,0,1],[0,0,0,1]];
-	    // var sequencematrix = document.getElementById('sequencematrix'); 
-	
-	    var synth = this.synth;
+	    var notes = ['F#3', 'E3', 'C#3', 'A3'];
+	    var lastNote = null;
 	
 	    var loop = new _tone2.default.Sequence(function (time, col) {
-	        console.log('time', time);
-	        console.log('col', col);
-	        synth.triggerAttack(col);
-	        // var column = sequencematrix[col];
-	        // for (var i = 0; i < 4; i++) {
-	        //     if (column[i] === 1) {
-	        //         var vel = Math.random() * 0.5 + 0.5;
-	        //         this.synth.triggerAttack(noteNames[i], time, vel);
-	        //     }
-	        // }
-	    }, ['F#3', 'E3', 'C#3', 'A3'], '4n');
+	        if (lastNote) {
+	            _this.synth.triggerRelease(lastNote);
+	        }
+	        var column = _this.sequenceMatrix[col];
+	        for (var i = 0; i < column.length; i++) {
+	            if (column[i] === 1) {
+	                var vel = Math.random() * 0.5 + 0.5;
+	                _this.synth.triggerAttack(notes[i], time, vel);
+	                lastNote = notes[i];
+	            }
+	        }
+	    }, [0, 1, 2, 3], '4n');
 	
 	    _tone2.default.Transport.start();
-	
-	    // nx.onload = function(){
-	    //     console.log('nx onload hit');
-	    //     nx.colorize('#0F0');
-	    //     sequencematrix.col = 16;
-	    //     sequencematrix.row = 4;
-	    //     sequencematrix.height = 300;
-	    //     sequencematrix.width = 300;
-	    //     sequencematrix.init();
-	    //     sequencematrix.draw();
-	    // };
-	
 	
 	    this.startLoop = function () {
 	        loop.start();
@@ -34164,11 +34179,11 @@
 	
 	    this.stopLoop = function () {
 	        loop.stop();
-	        synth.releaseAll();
+	        this.synth.releaseAll();
 	    };
 	
 	    this.noteOn = function (note) {
-	        console.log(this.synth);
+	        // console.log(this.synth);
 	        this.synth.triggerAttack(note);
 	    };
 	
@@ -56125,7 +56140,7 @@
 /* 18 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"Content\" class=\"FullScreen\">\n\t<div id=\"Title\">PolySynth</div>\n\n\t<div>\n\t\t\t<input type=\"radio\" value=\"pwm\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t<input type=\"radio\" value=\"triangle\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t<input type=\"radio\" value=\"square\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t<input type=\"radio\" value=\"sawtooth\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t{{waveForm}}\n\t</div>\n\t<div>\n\t\t<label>A</label>\n\t\t<input type=\"range\" min=\"0\" max=\"10\" ng-init=\"newAttack=0.1\" step=\"0.1\" ng-model=\"newAttack\" ng-change=\"$ctrl.synth.set('envelope', {attack: newAttack})\">{{newAttack}}\n\t\t\n\t\t<label>D</label>\n\t\t<input type=\"range\" min=\"0\" max=\"10\" ng-init=\"newDecay=0.2\" step=\"0.1\" ng-model=\"newDecay\" ng-change=\"$ctrl.synth.set('envelope', {decay: newDecay})\">{{newDecay}}\n\t\t\n\t\t<label>S</label>\n\t\t<input type=\"range\" min=\"0\" max=\"1\" ng-init=\"newSustain=1\" step=\"0.1\" ng-model=\"newSustain\" ng-change=\"$ctrl.synth.set('envelope', {sustain: newSustain})\">{{newSustain}}\n\t\t\n\t\t<label>R</label>\n\t\t<input type=\"range\" min=\"0\" max=\"10\" ng-init=\"newRelease=0.8\" step=\"0.1\" ng-model=\"newRelease\" ng-change=\"$ctrl.synth.set('envelope', {release: newRelease})\">{{newRelease}}\n\t</div>\n\t<!--<div>\n\t\t<label>Filter Type: {{filterType}}</label>\n\t\t<input type=\"radio\" value=\"highpass\" ng-model=\"filterType\" ng-change=\"$ctrl.setFilter(10000, filterType)\">\n\t\t<input type=\"radio\" value=\"lowpass\" ng-model=\"filterType\" ng-change=\"$ctrl.setFilter(10, filterType)\">\n\t\t<input type=\"radio\" value=\"bandpass\" ng-model=\"filterType\" ng-change=\"$ctrl.setFilter(800, filterType)\">\n\t</div>-->\n\t<div>\n\t\t<label>Portamento</label>\n\t\t<input type=\"range\" min=\"0\" max=\"2\" ng-init=\"newPorta=0.2\" step=\"0.1\" ng-model=\"newPorta\" ng-change=\"$ctrl.synth.set('portamento', newPorta)\">{{newPorta}}\n\t</div>\n\t<div class=\"keyboard\" ng-keydown=\"$ctrl.keyDown($event)\" ng-keyup=\"$ctrl.keyUp($event)\" tabindex=\"0\">\n\t\t<ul>\n\t\t\t<li ng-repeat=\"note in $ctrl.notes\" ng-mousedown=\"$ctrl.noteOn(note.note)\" ng-mouseup=\"$ctrl.noteOff(note.note)\">{{note.note}}</li>\n\t\t</ul>\n\t</div>\n\t<div>\n\t\t<button ng-click=\"$ctrl.startLoop()\">Start</button><button ng-click=\"$ctrl.stopLoop()\">Stop</button>\n\t</div>\n\t<!--<canvas nx=\"matrix\" id=\"sequencematrix\"></canvas>-->\n</div>\n";
+	module.exports = "<div id=\"Content\" class=\"FullScreen\">\n\t<div id=\"Title\">PolySynth</div>\n\n\t<div>\n\t\t\t<input type=\"radio\" value=\"pwm\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t<input type=\"radio\" value=\"triangle\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t<input type=\"radio\" value=\"square\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t<input type=\"radio\" value=\"sawtooth\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t{{waveForm}}\n\t</div>\n\t<div>\n\t\t<label>A</label>\n\t\t<input type=\"range\" min=\"0\" max=\"10\" ng-init=\"newAttack=0.1\" step=\"0.1\" ng-model=\"newAttack\" ng-change=\"$ctrl.synth.set('envelope', {attack: newAttack})\">{{newAttack}}\n\t\t\n\t\t<label>D</label>\n\t\t<input type=\"range\" min=\"0\" max=\"10\" ng-init=\"newDecay=0.2\" step=\"0.1\" ng-model=\"newDecay\" ng-change=\"$ctrl.synth.set('envelope', {decay: newDecay})\">{{newDecay}}\n\t\t\n\t\t<label>S</label>\n\t\t<input type=\"range\" min=\"0\" max=\"1\" ng-init=\"newSustain=1\" step=\"0.1\" ng-model=\"newSustain\" ng-change=\"$ctrl.synth.set('envelope', {sustain: newSustain})\">{{newSustain}}\n\t\t\n\t\t<label>R</label>\n\t\t<input type=\"range\" min=\"0\" max=\"10\" ng-init=\"newRelease=0.8\" step=\"0.1\" ng-model=\"newRelease\" ng-change=\"$ctrl.synth.set('envelope', {release: newRelease})\">{{newRelease}}\n\t</div>\n\t<!--<div>\n\t\t<label>Filter Type: {{filterType}}</label>\n\t\t<input type=\"radio\" value=\"highpass\" ng-model=\"filterType\" ng-change=\"$ctrl.setFilter(10000, filterType)\">\n\t\t<input type=\"radio\" value=\"lowpass\" ng-model=\"filterType\" ng-change=\"$ctrl.setFilter(10, filterType)\">\n\t\t<input type=\"radio\" value=\"bandpass\" ng-model=\"filterType\" ng-change=\"$ctrl.setFilter(800, filterType)\">\n\t</div>-->\n\t<div>\n\t\t<label>Portamento</label>\n\t\t<input type=\"range\" min=\"0\" max=\"2\" ng-init=\"newPorta=0.2\" step=\"0.1\" ng-model=\"newPorta\" ng-change=\"$ctrl.synth.set('portamento', newPorta)\">{{newPorta}}\n\t</div>\n\t<div class=\"keyboard\" ng-keydown=\"$ctrl.keyDown($event)\" ng-keyup=\"$ctrl.keyUp($event)\" tabindex=\"0\">\n\t\t<ul>\n\t\t\t<li ng-repeat=\"note in $ctrl.notes\" ng-mousedown=\"$ctrl.noteOn(note.note)\" ng-mouseup=\"$ctrl.noteOff(note.note)\">{{note.note}}</li>\n\t\t</ul>\n\t</div>\n\t<div>\n\t\t<ul class=\"column\" ng-repeat=\"array in $ctrl.sequenceMatrix\">\n\t\t\t<div class=\"cell\" ng-repeat=\"value in array track by $index\" ng-click=\"$ctrl.updateMatrix($parent.$index, $index);\">{{value}}</div>\n\t\t</ul>\n\n\n\t\t<button ng-click=\"$ctrl.startLoop()\">Start</button><button ng-click=\"$ctrl.stopLoop()\">Stop</button>\n\t</div>\n\t\n</div>\n";
 
 /***/ },
 /* 19 */
@@ -56162,13 +56177,94 @@
 	
 	
 	// module
-	exports.push([module.id, ".keyboard ul {\n  list-style-type: none; }\n  .keyboard ul li {\n    width: 50px;\n    height: 100px;\n    border: 2px solid black;\n    display: inline-block; }\n", "", {"version":3,"sources":["/./src/components/synth/src/components/synth/synth.scss"],"names":[],"mappings":"AAAA;EAEQ,sBAAqB,EAOxB;EATL;IAIY,YAAW;IACX,cAAa;IACb,wBAAuB;IACvB,sBAAqB,EACxB","file":"synth.scss","sourcesContent":[".keyboard {\n    ul {\n        list-style-type: none;\n        li {\n            width: 50px;\n            height: 100px;\n            border: 2px solid black;\n            display: inline-block;\n        }\n    }\n}\n\n\n    // input[type=range] {\n    //     -webkit-appearance: slider-vertical;\n    // }"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".keyboard ul {\n  list-style-type: none;\n  font-size: 0.7em; }\n  .keyboard ul li {\n    text-align: center;\n    width: 35px;\n    height: 100px;\n    border: 2px solid black;\n    display: inline-block; }\n\n.keyboard li:nth-child(12n+2),\n.keyboard li:nth-child(12n+4),\n.keyboard li:nth-child(12n+7),\n.keyboard li:nth-child(12n+9),\n.keyboard li:nth-child(12n+11) {\n  background-color: black;\n  width: 20px;\n  color: white; }\n\n.keyboard li:nth-child(12n+6),\n.keyboard li:nth-child(12n+13) {\n  border-left: none; }\n\n.column {\n  display: inline-block;\n  padding: 0;\n  margin: 5px; }\n\n.cell {\n  height: 50px;\n  width: 50px;\n  margin-bottom: 5px;\n  background-color: rgba(255, 0, 0, 0.5); }\n\n.selected {\n  background-color: red; }\n\n.not-selected {\n  background-color: rgba(255, 0, 0, 0.5); }\n", "", {"version":3,"sources":["/./src/components/synth/src/components/synth/synth.scss"],"names":[],"mappings":"AAAA;EAEQ,sBAAqB;EACrB,iBAAgB,EAUnB;EAbL;IAMY,mBAAkB;IAClB,YAAW;IACX,cAAa;IACb,wBAAuB;IACvB,sBAAqB,EACxB;;AAXT;;;;;EAoBQ,wBAAuB;EACvB,YAAW;EACX,aAAY,EACf;;AAvBL;;EA2BQ,kBAAiB,EACpB;;AAGL;EACI,sBAAqB;EACrB,WAAU;EACV,YAAW,EACd;;AAED;EACI,aAAY;EACZ,YAAW;EACX,mBAAkB;EAClB,uCAAkC,EACrC;;AAED;EACI,sBAAqB,EACxB;;AAED;EACI,uCAAkC,EACrC","file":"synth.scss","sourcesContent":[".keyboard {\n    ul {\n        list-style-type: none;\n        font-size: 0.7em;\n\n        li {\n            text-align: center;\n            width: 35px;\n            height: 100px;\n            border: 2px solid black;\n            display: inline-block;\n        }\n\n    }\n\n    li:nth-child(12n+2),\n    li:nth-child(12n+4),\n    li:nth-child(12n+7),\n    li:nth-child(12n+9),\n    li:nth-child(12n+11) {\n        background-color: black;\n        width: 20px;\n        color: white;\n    }\n\n    li:nth-child(12n+6),\n    li:nth-child(12n+13) {\n        border-left: none;\n    }\n}\n\n.column {\n    display: inline-block;\n    padding: 0;\n    margin: 5px;\n}\n\n.cell {\n    height: 50px;\n    width: 50px;\n    margin-bottom: 5px;\n    background-color: rgba(255,0,0,.5);\n}\n\n.selected {\n    background-color: red; \n};\n\n.not-selected {\n    background-color: rgba(255,0,0,.5);\n}\n\n    // input[type=range] {\n    //     -webkit-appearance: slider-vertical;\n    // }"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
 /* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _users = __webpack_require__(22);
+	
+	var _users2 = _interopRequireDefault(_users);
+	
+	var _users3 = __webpack_require__(23);
+	
+	var _users4 = _interopRequireDefault(_users3);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    template: _users2.default,
+	    bindings: {
+	        id: '<'
+	    },
+	    controller: controller
+	};
+	
+	
+	controller.$inject = ['userService', 'authService'];
+	
+	function controller() {
+	    this.styles = _users4.default;
+	}
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	module.exports = "<h1>User Profile</h1>\n<section>\n    <h2>Username: {{$ctrl.username}}</h2>\n    <div>\n        <h2>Patches</h2>\n\n    </div>\n    <div>\n        <h2>Users Followed</h2>\n        \n    </div>\n    <div>\n        <h2>Favorite Patches</h2>\n        \n    </div>\n</section>";
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(24);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(13)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./users.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./users.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(12)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"users.scss","sourceRoot":"webpack://"}]);
+	
+	// exports
+
+
+/***/ },
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -64517,7 +64613,7 @@
 	//# sourceMappingURL=angular-ui-router.js.map
 
 /***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64540,7 +64636,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var context = __webpack_require__(23);
+	var context = __webpack_require__(27);
 	
 	var _module = _angular2.default.module('services', []);
 	
@@ -64552,12 +64648,13 @@
 	exports.default = _module.name;
 
 /***/ },
-/* 23 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./auth-service.js": 24,
-		"./token-service.js": 25
+		"./auth-service.js": 28,
+		"./token-service.js": 29,
+		"./user-service.js": 30
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -64570,11 +64667,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 23;
+	webpackContext.id = 27;
 
 
 /***/ },
-/* 24 */
+/* 28 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64598,7 +64695,8 @@
 	        return function (credentials) {
 	            return $http.post(apiUrl + '/auth/' + endpoint, credentials).then(function (result) {
 	                tokenService.set(result.data.token);
-	                return currentUser = result.data.username;
+	                console.log('hi from the authService, here is result.data', result.data);
+	                return currentUser = result.data;
 	            }).catch(function (err) {
 	                throw err.data;
 	            });
@@ -64620,7 +64718,7 @@
 	}
 
 /***/ },
-/* 25 */
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64648,7 +64746,33 @@
 	}
 
 /***/ },
-/* 26 */
+/* 30 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = userService;
+	userService.$inject = ['$http', 'apiUrl', 'authService'];
+	
+	function userService($http, apiUrl, authService) {
+	
+	    var id = authService.currentUser.id;
+	    console.log('id from userService,', id);
+	
+	    return {
+	        getUserById: function getUserById() {
+	            return $http.get(apiUrl + '/users/' + id).then(function (res) {
+	                return res.data;
+	            });
+	        }
+	    };
+	}
+
+/***/ },
+/* 31 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64667,17 +64791,29 @@
 	        component: 'app'
 	    });
 	
+	    // $stateProvider.state({
+	    //     name: 'login',
+	    //     url: '/login',
+	    //     component: 'login'
+	    // });
+	
 	    $stateProvider.state({
-	        name: 'login',
-	        url: '/login',
-	        component: 'login'
+	        name: 'users',
+	        url: '/users',
+	        resolve: {
+	            user: ['authService', function (user) {
+	                console.log('hi from the user stateProvider. user:', user);
+	                return user.currentUser.id;
+	            }]
+	        },
+	        component: 'users'
 	    });
 	
 	    $urlRouterProvider.otherwise('/');
 	}
 
 /***/ },
-/* 27 */
+/* 32 */
 /***/ function(module, exports) {
 
 	/**
