@@ -81,7 +81,8 @@
 	var app = _angular2.default.module('myApp', [_components2.default, _services2.default, _angularUiRouter2.default, _angularUiRouterDefault2.default]);
 	
 	var dev = 'http://localhost:3000/api';
-	app.value('apiUrl', dev);
+	var url = ("/api") || dev;
+	app.value('apiUrl', url);
 	
 	app.config(_http2.default);
 	app.config(_routes2.default);
