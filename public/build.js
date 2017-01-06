@@ -54,31 +54,38 @@
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _angularUiRouter = __webpack_require__(25);
+	var _angularUiRouter = __webpack_require__(33);
 	
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 	
-	var _services = __webpack_require__(26);
+	var _services = __webpack_require__(34);
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _routes = __webpack_require__(31);
+	var _routes = __webpack_require__(41);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _angularUiRouterDefault = __webpack_require__(32);
+	var _angularUiRouterDefault = __webpack_require__(42);
 	
 	var _angularUiRouterDefault2 = _interopRequireDefault(_angularUiRouterDefault);
+	
+	var _http = __webpack_require__(43);
+	
+	var _http2 = _interopRequireDefault(_http);
+	
+	__webpack_require__(44);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var app = _angular2.default.module('myApp', [_components2.default, _services2.default, _angularUiRouter2.default, _angularUiRouterDefault2.default]);
 	
-	app.config(_routes2.default);
-	
 	var dev = 'http://localhost:3000/api';
+	var url = ("/api") || dev;
+	app.value('apiUrl', url);
 	
-	app.value('apiUrl', dev);
+	app.config(_http2.default);
+	app.config(_routes2.default);
 
 /***/ },
 /* 1 */
@@ -33587,10 +33594,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./app-header/app-header.js": 8,
-		"./app/app.js": 14,
-		"./synth/synth.js": 16,
-		"./users/users.js": 21
+		"./about/about.js": 8,
+		"./app-header/app-header.js": 14,
+		"./app/app.js": 18,
+		"./social/social.js": 20,
+		"./synth/synth.js": 24,
+		"./user/user.js": 29
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -33616,58 +33625,31 @@
 	    value: true
 	});
 	
-	var _appHeader = __webpack_require__(9);
+	var _about = __webpack_require__(9);
 	
-	var _appHeader2 = _interopRequireDefault(_appHeader);
+	var _about2 = _interopRequireDefault(_about);
 	
-	var _appHeader3 = __webpack_require__(10);
+	var _about3 = __webpack_require__(10);
 	
-	var _appHeader4 = _interopRequireDefault(_appHeader3);
+	var _about4 = _interopRequireDefault(_about3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = {
-	    template: _appHeader2.default,
+	    template: _about2.default,
 	    controller: controller
 	};
 	
 	
-	controller.$inject = ['authService'];
-	
-	function controller(authService) {
-	    var _this = this;
-	
-	    this.styles = _appHeader4.default;
-	    this.action = 'signup';
-	
-	    this.login = function () {
-	        _this.credentials = {
-	            username: _this.username,
-	            password: _this.password
-	        };
-	        if (_this.action === 'signup') {
-	            authService.signup(_this.credentials).then(function (res) {
-	                console.log('signed up as', res);
-	                _this.currentUser = res;
-	            }).catch(function (err) {
-	                console.log('signup catch', err);
-	            });
-	        } else if (_this.action === 'signin') {
-	            authService.signin(_this.credentials).then(function (res) {
-	                console.log('signed in as', res);
-	                _this.currentUser = res;
-	            }).catch(function (err) {
-	                console.log('signup catch', err);
-	            });
-	        }
-	    };
+	function controller() {
+	    this.styles = _about4.default;
 	}
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h1>Portamento</h1>\n    <a ui-sref=\"users\">User Profile</a>\n    <div>\n        <label>\n            <input name=\"login\" type=\"radio\" ng-model=\"$ctrl.action\" value=\"signin\">\n            Sign in\n        </label>\n        <label>\n            <input name=\"login\" type=\"radio\" ng-model=\"$ctrl.action\" value=\"signup\">\n            Sign up\n        </label>\n        <label>Username:</label>\n        <input ng-model=\"$ctrl.username\">\n        <label>Password:</label>\n        <input type=\"password\" ng-model=\"$ctrl.password\">\n        <button ng-click=\"$ctrl.login()\">Submit</button>\n        <h4>Signed in as: {{ $ctrl.currentUser.username }}</h4>\n    </div>\n</section>";
+	module.exports = "<section ng-class=\"$ctrl.styles.about\">\n  <div>\n    <h2>About Us</h2>\n    <p>Portamento - a synth and sequencer social site was created and maintained by the following team of developers.\n    </p>\n  </div>\n  <ul id=\"bios\">\n    <li>\n      <h4>Andy Beers</h4>\n      <img src=\"images/andy.png\" alt=\"andy beers\">\n      <p>A bunch of text telling everyone how awesome we are.</p>\n    </li>\n\n    <li>\n      <h4>Tim Combs</h4>\n      <img src=\"images/tcombs.png\" alt=\"tim combs\">\n      <p>Now a full-stack javascript developer, Tim has played in a number of bands over the years and has had a storied career in the arts, education and non-profits.</p>\n\n    <li>\n      <h4>William Nickerson</h4>\n      <img src=\"images/wnickerson.png\" alt=\"William Nickerson\">\n      <p>A bunch of text telling everyone how awesome we are.</p>\n    </li>\n\n    <li>\n      <h4>Niilo Smeds</h4>\n      <img src=\"images/nsmeds.png\" alt=\"Niilo Smeds\">\n      <p>A full-stack JavaScript developer from Portland with a background in music and concert lighting design.</p>\n    </li>\n\n    <li>\n      <h4>Tom Timmel</h4>\n      <img src=\"images/ttimmel.png\" alt=\"Tom Timmel\">\n      <p>A bunch of text telling everyone how awesome we are.</p>  \n    </li>\n  </ul>\n</section>";
 
 /***/ },
 /* 10 */
@@ -33685,8 +33667,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./app-header.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./app-header.scss");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./about.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./about.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -33704,10 +33686,12 @@
 	
 	
 	// module
-	exports.push([module.id, "section {\n  background-color: powderblue; }\n", "", {"version":3,"sources":["/./src/components/app-header/src/components/app-header/app-header.scss"],"names":[],"mappings":"AAAA;EACI,6BAA4B,EAC/B","file":"app-header.scss","sourcesContent":["section {\n    background-color: powderblue;\n}"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "._1YnBKp12AG3QJ19uUlXsXg {\n  display: flex;\n  flex-direction: column;\n  text-align: center; }\n  ._1YnBKp12AG3QJ19uUlXsXg #bios {\n    display: flex;\n    justify-content: space-around;\n    flex-wrap: wrap; }\n    ._1YnBKp12AG3QJ19uUlXsXg #bios p {\n      font-size: 0.8em;\n      text-align: left; }\n  ._1YnBKp12AG3QJ19uUlXsXg div {\n    max-width: 600px;\n    margin-left: auto;\n    margin-right: auto; }\n    ._1YnBKp12AG3QJ19uUlXsXg div p {\n      text-align: left; }\n  ._1YnBKp12AG3QJ19uUlXsXg ul {\n    list-style: none;\n    padding-left: 0;\n    margin: 0; }\n    ._1YnBKp12AG3QJ19uUlXsXg ul li {\n      flex-basis: 10em;\n      padding: 0.5em; }\n  ._1YnBKp12AG3QJ19uUlXsXg img {\n    width: 80px;\n    border-radius: 2px; }\n", "", {"version":3,"sources":["/./src/components/about/src/components/about/about.scss"],"names":[],"mappings":"AAAA;EACI,cAAa;EACb,uBAAsB;EACtB,mBAAkB,EA0CrB;EA7CD;IAMQ,cAAa;IACb,8BAA6B;IAC7B,gBAAe,EAOlB;IAfL;MAWgB,iBAAgB;MAChB,iBAAgB,EACnB;EAbb;IAkBQ,iBAAgB;IAChB,kBAAiB;IACjB,mBAAkB,EAKrB;IAzBL;MAuBY,iBAAgB,EACnB;EAxBT;IA4BQ,iBAAgB;IAChB,gBAAe;IACf,UAAS,EAOZ;IArCL;MAiCY,iBAAgB;MAChB,eAAc,EAEjB;EApCT;IAwCQ,YAAW;IACX,mBAAkB,EACrB","file":"about.scss","sourcesContent":[":local(.about) {\n    display: flex;\n    flex-direction: column;\n    text-align: center;\n\n    #bios {\n        display: flex;\n        justify-content: space-around;\n        flex-wrap: wrap;\n\n            p {\n                font-size: 0.8em;\n                text-align: left;\n            }\n\n    }\n\n    div {\n        max-width: 600px;\n        margin-left: auto;\n        margin-right: auto;\n\n        p {\n            text-align: left;\n        }\n    }\n\n    ul {\n        list-style: none;\n        padding-left: 0;\n        margin: 0;\n\n        li {\n            flex-basis: 10em;\n            padding: 0.5em;\n\n        }\n    }\n\n    img {\n        width: 80px;\n        border-radius: 2px;\n    }\n\n\n}"],"sourceRoot":"webpack://"}]);
 	
 	// exports
-
+	exports.locals = {
+		"about": "_1YnBKp12AG3QJ19uUlXsXg"
+	};
 
 /***/ },
 /* 12 */
@@ -34027,24 +34011,119 @@
 	    value: true
 	});
 	
-	var _app = __webpack_require__(15);
+	var _appHeader = __webpack_require__(15);
 	
-	var _app2 = _interopRequireDefault(_app);
+	var _appHeader2 = _interopRequireDefault(_appHeader);
+	
+	var _appHeader3 = __webpack_require__(16);
+	
+	var _appHeader4 = _interopRequireDefault(_appHeader3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = {
-	    template: _app2.default
+	    template: _appHeader2.default,
+	    bindings: {
+	        currentUser: '<'
+	    },
+	    controller: controller
 	};
+	
+	
+	controller.$inject = ['$state', 'authService'];
+	
+	function controller($state, authService) {
+	    var _this = this;
+	
+	    this.styles = _appHeader4.default;
+	    this.action = 'signin';
+	    this.badSignin = false;
+	    this.badUsername = false;
+	
+	    this.login = function () {
+	        _this.credentials = {
+	            username: _this.username,
+	            password: _this.password
+	        };
+	        if (_this.action === 'signup') {
+	            authService.signup(_this.credentials).then(function (res) {
+	                console.log('signed up as', res);
+	                _this.currentUser = res;
+	                _this.badUsername = false;
+	                $state.go('home');
+	            }).catch(function () {
+	                _this.badUsername = true;
+	            });
+	        } else if (_this.action === 'signin') {
+	            authService.signin(_this.credentials).then(function (res) {
+	                console.log('signed in as', res);
+	                _this.currentUser = res;
+	                _this.badSignin = false;
+	                $state.go('home');
+	            }).catch(function () {
+	                _this.badSignin = true;
+	            });
+	        }
+	    };
+	
+	    this.logout = function () {
+	        console.log('logging out');
+	        authService.logout();
+	        _this.currentUser = null;
+	        $state.go('home');
+	    };
+	}
 
 /***/ },
 /* 15 */
 /***/ function(module, exports) {
 
-	module.exports = "<header>\n    <app-header></app-header>\n</header>\n<!--<ui-view></ui-view>-->\n<synth></synth>";
+	module.exports = "<section ng-class=\"$ctrl.styles.header\">\n    <h1>Portamento</h1>\n    <div id=\"header-menu\">\n        <a ng-if=\"$ctrl.currentUser.id\" ui-sref=\"user({id: $ctrl.currentUser.id})\">User Profile</a>\n        <a ui-sref=\"social\">Community</a>\n        <a ui-sref=\"home\">Synth</a>\n        <a ui-sref=\"about\">About</a>\n    </div>\n    <div>\n        <form ng-if=\"!$ctrl.currentUser.id\">\n            <div>\n                <label>\n                    <input name=\"login\" type=\"radio\" ng-model=\"$ctrl.action\" value=\"signin\">\n                    Sign in\n                </label>\n                <label>\n                    <input name=\"login\" type=\"radio\" ng-model=\"$ctrl.action\" value=\"signup\">\n                    Sign up\n                </label>\n            </div>\n            <div>\n                <label>Username: <input ng-model=\"$ctrl.username\"></label>\n                <label>Password: <input type=\"password\" ng-model=\"$ctrl.password\"></label>\n                <button ng-click=\"$ctrl.login()\">Submit</button>\n                <p ng-if=\"$ctrl.badSignin\">Username or password invalid.</p>\n                <p ng-if=\"$ctrl.badUsername\">Username already taken.</p>\n            </div>\n        </form>\n        <div ng-if=\"$ctrl.currentUser.id\">\n            <span class=\"message\">Signed in as <a ui-sref=\"user({id: $ctrl.currentUser.id})\">{{ $ctrl.currentUser.username }}</a></span>\n            <button ng-click=\"$ctrl.logout()\">Log Out</button>\n        </div>\n    </div>\n</section>";
 
 /***/ },
 /* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(17);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(13)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./app-header.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./app-header.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(12)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "._1HGC6kkTzKw7_vtrNtniAA {\n  background: linear-gradient(to left top, #c1cdcd, #97aaaa);\n  text-align: center;\n  color: white; }\n  ._1HGC6kkTzKw7_vtrNtniAA h1 {\n    font-family: \"Monoton\", cursive;\n    text-transform: uppercase;\n    font-size: 3.5em;\n    margin: 0; }\n  ._1HGC6kkTzKw7_vtrNtniAA #header-menu {\n    margin: 0.25em; }\n  ._1HGC6kkTzKw7_vtrNtniAA #header-menu a,\n  ._1HGC6kkTzKw7_vtrNtniAA #header-menu a:visited {\n    color: white;\n    text-decoration: none;\n    margin-left: 0.5em;\n    margin-right: 0.5em; }\n  ._1HGC6kkTzKw7_vtrNtniAA #header-menu a:hover {\n    color: #A6F6FF; }\n  ._1HGC6kkTzKw7_vtrNtniAA .message {\n    font-size: 0.8em;\n    font-weight: 400; }\n  ._1HGC6kkTzKw7_vtrNtniAA .message a,\n  ._1HGC6kkTzKw7_vtrNtniAA .message a:visited {\n    color: white;\n    text-decoration: none; }\n  ._1HGC6kkTzKw7_vtrNtniAA .message a:hover {\n    color: #A6F6FF; }\n", "", {"version":3,"sources":["/./src/components/app-header/src/components/app-header/app-header.scss","/./src/components/app-header/src/scss/partials/_fonts.scss","/./src/components/app-header/src/scss/partials/_colors.scss"],"names":[],"mappings":"AAEA;EAGI,2DAAgF;EAChF,mBAAkB;EAClB,aAAY,EAyCf;EA9CD;IAQQ,gCCVyB;IDWzB,0BAAyB;IACzB,iBAAgB;IAChB,UAAS,EACZ;EAZL;IAeQ,eAAc,EACjB;EAhBL;;IAoBQ,aAAY;IACZ,sBAAqB;IACrB,mBAAkB;IAClB,oBAAmB,EACtB;EAxBL;IA2BQ,eAAc,EACjB;EA5BL;IA+BQ,iBAAgB;IAChB,iBAAgB,EACnB;EAjCL;;IAqCQ,aAAY;IACZ,sBAAqB,EACxB;EAvCL;IA0CQ,eEzCa,EF0ChB","file":"app-header.scss","sourcesContent":["@import 'fonts', 'colors';\n\n:local(.header) {\n    \n    // background: linear-gradient(to left top, #474647, #ddd);   \n    background: linear-gradient(to left top, hsl(180, 10%, 78%), hsl(180, 10%, 63%)); \n    text-align: center;\n    color: white;\n    \n    h1 {\n        font-family: $display-font;\n        text-transform: uppercase;\n        font-size: 3.5em;\n        margin: 0;\n    }\n\n    #header-menu {\n        margin: 0.25em;\n    }\n\n    #header-menu a,\n    #header-menu a:visited {\n        color: white;\n        text-decoration: none;\n        margin-left: 0.5em;\n        margin-right: 0.5em;\n    }\n\n    #header-menu a:hover {\n        color: #A6F6FF;\n    }\n\n    .message {\n        font-size: 0.8em;\n        font-weight: 400;\n    }\n\n    .message a,\n    .message a:visited {\n        color: white;\n        text-decoration: none;\n    }\n\n    .message a:hover {\n        color: $hover-color;\n    }\n\n    \n}\n    ","$display-font: 'Monoton', cursive;\n$primary-font: 'Ubuntu Mono', monospace;","$border-color: #666;\n$primary-color: #333;\n$secondary-color: #444;\n$hover-color: #A6F6FF;"],"sourceRoot":"webpack://"}]);
+	
+	// exports
+	exports.locals = {
+		"header": "_1HGC6kkTzKw7_vtrNtniAA"
+	};
+
+/***/ },
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34053,31 +34132,313 @@
 	    value: true
 	});
 	
-	var _tone = __webpack_require__(17);
+	var _app = __webpack_require__(19);
+	
+	var _app2 = _interopRequireDefault(_app);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    template: _app2.default,
+	    controller: controller
+	};
+	
+	
+	controller.$inject = ['authService', 'userService'];
+	
+	function controller(auth, user) {
+	    var _this = this;
+	
+	    this.currentUser = null;
+	
+	    this.$onInit = function () {
+	        if (auth.isAuthenticated()) {
+	            _this.currentUser = user.getCurrent();
+	            console.log('current user: ', _this.currentUser);
+	        }
+	    };
+	}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	module.exports = "<header>\n    <app-header current-user=\"$ctrl.currentUser\"></app-header>\n</header>\n\n<ui-view></ui-view>\n<!--<synth user-patches=\"$ctrl.userPatches\"></synth>-->\n";
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _social = __webpack_require__(21);
+	
+	var _social2 = _interopRequireDefault(_social);
+	
+	var _social3 = __webpack_require__(22);
+	
+	var _social4 = _interopRequireDefault(_social3);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    template: _social2.default,
+	    bindings: {
+	        favs: '<',
+	        votes: '<',
+	        userFollows: '<',
+	        recentUsers: '<',
+	        randomPatches: '<'
+	    },
+	    controller: controller
+	};
+	
+	
+	function controller() {
+	    this.$onInit = function () {
+	        console.log('votes', this.votes);
+	    };
+	    this.styles = _social4.default;
+	}
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	module.exports = "<section ng-class=\"$ctrl.styles.social\">\n    <h2>Community</h2>\n    <div>\n        <ul>    \n            <h3>Liked Patches</h3>\n            <li ng-repeat=\"votes in $ctrl.votes\">\n                <span>\n                    <a ui-sref=\"patch({id: votes._id})\">{{votes.name}}</a>\n                    by <a ui-sref=\"user({id: votes.userId._id})\">{{votes.userId.username}}</a>\n                </span>\n                <span class=\"favs\">({{votes.votes}} likes)</span>\n            </li>\n        </ul>\n        <ul>    \n            <h3>Favorite Patches</h3>\n            <li ng-repeat=\"favs in $ctrl.favs\">\n                <span>\n                    <a ui-sref=\"patch({id: favs._id})\">{{favs.name}}</a>\n                    by <a ui-sref=\"user({id: favs.userId._id})\">{{favs.userId.username}}</a>\n                </span>\n                <span class=\"favs\">({{favs.favorites}} favorites)</span>\n                </li>\n        </ul>\n        <ul>\n            <h3>Random Patches</h3>\n            <li ng-repeat=\"patch in $ctrl.randomPatches\">\n                <a ui-sref=\"patch({id: patch._id})\">{{patch.name}}</a>\n                by <a ui-sref=\"user({id: patch.userId._id})\">{{patch.userId.username}}</a>\n            <li>\n        </ul>\n    </div>\n\n\n         \n    <div>\n        <ul> \n           <h3>Most Followers</h3>\n            <li ng-repeat=\"user in $ctrl.userFollows\"><a ui-sref=\"user({id: user._id})\">{{user.username}}</a> : {{user.followers}}</li>\n        </ul>\n        <ul>\n            <h3>Newest Users</h3>\n            <li ng-repeat=\"user in $ctrl.recentUsers\"><a ui-sref=\"user({id: user._id})\">{{user.username}}</a> : ({{user.patchId}} patches)</li>\n        </ul>\n        <ul>\n            <h3>Random Users</h3>\n            <li ng-repeat=\"user in $ctrl.userFollows\"><a ui-sref=\"user({id: user._id})\">{{user.username}}</a> <span class=\"favs\">({{user.followingId.length}})</span></li>\n\n        </ul>\n    </div>\n</section>";
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(23);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(13)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./social.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./social.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(12)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "._1kb9T8eraxEm2l0i2dNABe {\n  display: flex;\n  flex-direction: column;\n  text-align: center; }\n  ._1kb9T8eraxEm2l0i2dNABe h2 {\n    margin-bottom: 0.2em; }\n  ._1kb9T8eraxEm2l0i2dNABe div {\n    display: flex;\n    justify-content: space-around;\n    flex-wrap: wrap; }\n  ._1kb9T8eraxEm2l0i2dNABe ul {\n    list-style: none;\n    text-align: left;\n    padding-left: 0;\n    margin: 0; }\n    ._1kb9T8eraxEm2l0i2dNABe ul li {\n      padding-top: 0.2em;\n      padding-bottom: 0.2em;\n      font-size: 0.9em;\n      border-bottom: 1px solid #eee;\n      display: flex;\n      justify-content: space-between; }\n      ._1kb9T8eraxEm2l0i2dNABe ul li .favs {\n        font-size: 0.7em;\n        padding-left: 0.3em; }\n  ._1kb9T8eraxEm2l0i2dNABe a {\n    font-weight: 700;\n    text-decoration: none;\n    color: #444; }\n  ._1kb9T8eraxEm2l0i2dNABe a:hover {\n    color: #A6F6FF; }\n", "", {"version":3,"sources":["/./src/components/social/src/components/social/social.scss","/./src/components/social/src/scss/partials/_colors.scss"],"names":[],"mappings":"AAEA;EACI,cAAa;EACb,uBAAsB;EACtB,mBAAkB,EA4CrB;EA/CD;IAMQ,qBAAoB,EACvB;EAPL;IAUQ,cAAa;IACb,8BAA6B;IAC7B,gBAAe,EAClB;EAbL;IAgBQ,iBAAgB;IAChB,iBAAgB;IAChB,gBAAe;IACf,UAAS,EAgBZ;IAnCL;MAsBY,mBAAkB;MAClB,sBAAqB;MACrB,iBAAgB;MAChB,8BAA6B;MAC7B,cAAa;MACb,+BAA8B,EAMjC;MAjCT;QA8BgB,iBAAgB;QAChB,oBAAmB,EACtB;EAhCb;IAsCQ,iBAAgB;IAChB,sBAAqB;IACrB,YCxCc,EDyCjB;EAzCL;IA4CQ,eC3Ca,ED4ChB","file":"social.scss","sourcesContent":["@import 'colors';\n\n:local(.social) {\n    display: flex;\n    flex-direction: column;\n    text-align: center;\n\n    h2 {\n        margin-bottom: 0.2em;\n    }\n\n    div {\n        display: flex;\n        justify-content: space-around;\n        flex-wrap: wrap;\n    }\n\n    ul {\n        list-style: none;\n        text-align: left;\n        padding-left: 0;\n        margin: 0;\n\n        li {\n            padding-top: 0.2em;\n            padding-bottom: 0.2em;\n            font-size: 0.9em;\n            border-bottom: 1px solid #eee;\n            display: flex;\n            justify-content: space-between;\n\n            .favs {\n                font-size: 0.7em;\n                padding-left: 0.3em;\n            }\n        }\n\n    }\n\n    a {\n        font-weight: 700;\n        text-decoration: none;\n        color: $secondary-color;\n    }\n\n    a:hover {\n        color: $hover-color;\n    }\n\n}","$border-color: #666;\n$primary-color: #333;\n$secondary-color: #444;\n$hover-color: #A6F6FF;"],"sourceRoot":"webpack://"}]);
+	
+	// exports
+	exports.locals = {
+		"social": "_1kb9T8eraxEm2l0i2dNABe"
+	};
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _tone = __webpack_require__(25);
 	
 	var _tone2 = _interopRequireDefault(_tone);
 	
-	var _synth = __webpack_require__(18);
+	var _synth = __webpack_require__(26);
 	
 	var _synth2 = _interopRequireDefault(_synth);
 	
-	var _synth3 = __webpack_require__(19);
+	var _synth3 = __webpack_require__(27);
 	
 	var _synth4 = _interopRequireDefault(_synth3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import nx from 'nexusui';
 	exports.default = {
 	    template: _synth2.default,
+	    bindings: {
+	        currentUser: '=',
+	        userPatches: '<',
+	        favPatches: '<',
+	        loadedPatch: '<'
+	    },
 	    controller: controller
 	};
 	
 	
-	controller.$inject = ['$window'];
+	controller.$inject = ['patchService', 'sequenceService', 'userService', '$window'];
 	
-	function controller() {
+	function controller(patchService, sequenceService, userService, $window) {
 	    var _this = this;
+	
+	    var doc = $window.document;
+	
+	    this.$onInit = function () {
+	        _this.loginPrompt = false;
+	
+	        if (_this.loadedPatch) {
+	            _this.favorited = false;
+	            _this.patch = _this.loadedPatch;
+	            _this.setSynth();
+	            _this.patchSaved = true;
+	            _this.loadSequence(_this.patch._id);
+	            if (_this.currentUser) {
+	                userService.getUserById(_this.currentUser.id).then(function (user) {
+	                    user.favoriteId.forEach(function (obj) {
+	                        if (obj._id === _this.patch._id) {
+	                            _this.favorited = true;
+	                        }
+	                    });
+	                });
+	            }
+	        }
+	
+	        doc.addEventListener('keydown', _this.keyDownHandler);
+	        doc.addEventListener('keyup', _this.keyUpHandler);
+	    };
+	
+	    //destroys key events so they don't repeat each time component reused
+	    this.$onDestroy = function () {
+	        doc.removeEventListener('keydown', _this.keyDownHandler);
+	        doc.removeEventListener('keyup', _this.keyUpHandler);
+	    };
+	
+	    this.upVoted = false;
+	    this.patchSaved = false;
+	    //load default patch if patch not resolved in state
+	    this.patch = {
+	        name: '',
+	        settings: {
+	            wave: 'sawtooth',
+	            envelope: {
+	                attack: .1,
+	                decay: .5,
+	                sustain: 1,
+	                release: .5
+	            },
+	            portamento: .2
+	        }
+	    };
+	
+	    this.setSynth = function () {
+	        _this.synth.set({
+	            oscillator: { type: _this.patch.settings.wave },
+	            envelope: {
+	                attack: _this.patch.settings.envelope.attack,
+	                decay: _this.patch.settings.envelope.decay,
+	                sustain: _this.patch.settings.envelope.sustain,
+	                release: _this.patch.settings.envelope.release
+	            },
+	            portamento: _this.patch.settings.portamento
+	        });
+	        // this.loadSequence(this.patch._id);
+	    };
+	
+	    this.savePatch = function () {
+	        _this.favorited = false;
+	        if (!_this.currentUser) {
+	            _this.loginPrompt = true;
+	            return;
+	        }
+	        if (_this.patch._id) {
+	            delete _this.patch._id;
+	        }
+	        _this.patch.userId = _this.currentUser.id;
+	        patchService.add(_this.patch).then(function (res) {
+	            _this.patch._id = res._id;
+	            _this.userPatches.push(res);
+	            return res;
+	        }).then(function (res) {
+	            var currSequence = {
+	                sequence: _this.sequenceMatrix,
+	                tempo: _this.bpm,
+	                patchId: res._id
+	            };
+	            sequenceService.add(currSequence);
+	        }).then(function () {
+	            return userService.getUserById(_this.currentUser.id);
+	        }).then(function (user) {
+	            user.patchId.push(_this.patch._id);
+	            return user;
+	        }).then(function (user) {
+	            return userService.updateUser(user._id, user);
+	        });
+	
+	        _this.patchSaved = true;
+	    };
+	
+	    this.vote = function (number) {
+	        if (_this.upVoted === false) _this.upVoted = true;else _this.upVoted = false;
+	        console.log(_this.upVoted, _this.patchSaved);
+	        if (!_this.patch.votes) _this.patch.votes = 0;
+	        _this.patch.votes += number;
+	        patchService.update(_this.patch._id, _this.patch).then(function (res) {
+	            return console.log(res);
+	        }).catch(function (error) {
+	            return console.log('error at upvoting', error);
+	        });
+	    };
+	
+	    this.favorite = function () {
+	        _this.favorited = true;
+	        if (!_this.patch.favorites) _this.patch.favorites = 0;
+	        _this.patch.favorites += 1;
+	        console.log(_this.patch);
+	        patchService.update(_this.patch._id, _this.patch).then(function (res) {
+	            _this.favPatches.push(res);
+	            console.log('in first then');
+	            userService.getUserById(_this.currentUser.id).then(function (user) {
+	                console.log('user', user);
+	                user.favoriteId.push(_this.patch._id);
+	                userService.updateUser(_this.currentUser.id, user);
+	            });
+	        });
+	    };
+	
+	    this.unfavorite = function () {
+	        _this.favorited = false;
+	        _this.patch.favorites += -1;
+	        patchService.update(_this.patch._id, _this.patch).then(function () {
+	            userService.getUserById(_this.currentUser.id).then(function (user) {
+	                user.favoriteId.forEach(function (obj, index) {
+	                    if (obj._id === _this.patch._id) {
+	                        user.favoriteId.splice(index, 1);
+	                    }
+	                });
+	                userService.updateUser(_this.currentUser.id, user);
+	            });
+	        });
+	    };
+	
+	    this.loadSequence = function (patchId) {
+	        sequenceService.get(patchId).then(function (res) {
+	            _this.sequenceMatrix = res.sequence;
+	            _this.bpm = res.tempo;
+	        });
+	    };
 	
 	    this.styles = _synth4.default;
 	
@@ -34137,41 +34498,54 @@
 	        keyCode: 222
 	    }];
 	
+	    this.filter = new _tone2.default.Filter().toMaster();
+	    this.combFilter = new _tone2.default.FeedbackCombFilter(0, 0).toMaster();
+	
 	    this.synth = new _tone2.default.PolySynth(6, _tone2.default.Synth, {
 	        'oscillator': {
-	            'partials': [0, 2, 3, 4]
+	            'partials': [0, 2, 3, 4],
+	            'type': 'sawtooth'
 	        }
-	    }).toMaster();
+	    });
+	
+	    this.synth.chain(this.filter, this.combFilter, _tone2.default.Master);
 	
 	    this.updateMatrix = function (col, row) {
 	        if (this.sequenceMatrix[col][row] === 1) this.sequenceMatrix[col][row] = 0;else this.sequenceMatrix[col][row] = 1;
-	        // console.log(this.sequenceMatrix);
 	    };
 	
 	    this.toggleSelect = function () {
 	        console.log('hit');
 	    };
 	
-	    this.sequenceMatrix = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
+	    this.sequenceMatrix = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
 	
 	    var notes = ['F#3', 'E3', 'C#3', 'A3'];
-	    var lastNote = null;
+	    // let lastNote = null;
 	
 	    var loop = new _tone2.default.Sequence(function (time, col) {
-	        if (lastNote) {
-	            _this.synth.triggerRelease(lastNote);
-	        }
+	        // if(lastNote) {
+	        _this.synth.releaseAll();
+	        // }
 	        var column = _this.sequenceMatrix[col];
 	        for (var i = 0; i < column.length; i++) {
 	            if (column[i] === 1) {
 	                var vel = Math.random() * 0.5 + 0.5;
 	                _this.synth.triggerAttack(notes[i], time, vel);
-	                lastNote = notes[i];
+	                // lastNote = notes[i];
 	            }
 	        }
-	    }, [0, 1, 2, 3], '4n');
+	    }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], '16n');
 	
 	    _tone2.default.Transport.start();
+	
+	    this.bpm = 120;
+	
+	    this.setBpm = function () {
+	        _tone2.default.Transport.bpm.value = this.bpm;
+	    };
+	
+	    this.setBpm();
 	
 	    this.startLoop = function () {
 	        loop.start();
@@ -34183,7 +34557,6 @@
 	    };
 	
 	    this.noteOn = function (note) {
-	        // console.log(this.synth);
 	        this.synth.triggerAttack(note);
 	    };
 	
@@ -34196,25 +34569,42 @@
 	        this.synth['filter'] = filter;
 	    };
 	
+	    this.unFocus = function ($event) {
+	        $event.target.blur();
+	    };
+	
+	    var fired = {};
+	
 	    this.keyDown = function ($event) {
-	        $event.preventDefault();
-	        var note = this.notes.find(function (n) {
-	            return n.keyCode === $event.keyCode;
-	        });
-	        this.noteOn(note.note);
+	        console.log($event.keyCode);
+	        if ($event.target.tagName.toLowerCase() === 'input') return;
+	        if (!fired[$event.keyCode]) {
+	            fired[$event.keyCode] = true;
+	            $event.preventDefault();
+	            //console.log('2nd', )
+	            var note = this.notes.find(function (n) {
+	                return n.keyCode === $event.keyCode;
+	            });
+	            this.noteOn(note.note);
+	        }
 	    };
 	
 	    this.keyUp = function ($event) {
+	        fired[$event.keyCode] = false;
 	        $event.preventDefault();
+	        //following line works
 	        var note = this.notes.find(function (n) {
 	            return n.keyCode === $event.keyCode;
 	        });
 	        this.noteOff(note.note);
 	    };
+	
+	    this.keyDownHandler = this.keyDown.bind(this);
+	    this.keyUpHandler = this.keyUp.bind(this);
 	}
 
 /***/ },
-/* 17 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory){
@@ -56137,19 +56527,19 @@
 	}));
 
 /***/ },
-/* 18 */
+/* 26 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"Content\" class=\"FullScreen\">\n\t<div id=\"Title\">PolySynth</div>\n\n\t<div>\n\t\t\t<input type=\"radio\" value=\"pwm\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t<input type=\"radio\" value=\"triangle\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t<input type=\"radio\" value=\"square\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t<input type=\"radio\" value=\"sawtooth\" ng-model=\"waveForm\" ng-change=\"$ctrl.synth.set({oscillator: {type: waveForm}})\">\n\t\t\t{{waveForm}}\n\t</div>\n\t<div>\n\t\t<label>A</label>\n\t\t<input type=\"range\" min=\"0\" max=\"10\" ng-init=\"newAttack=0.1\" step=\"0.1\" ng-model=\"newAttack\" ng-change=\"$ctrl.synth.set('envelope', {attack: newAttack})\">{{newAttack}}\n\t\t\n\t\t<label>D</label>\n\t\t<input type=\"range\" min=\"0\" max=\"10\" ng-init=\"newDecay=0.2\" step=\"0.1\" ng-model=\"newDecay\" ng-change=\"$ctrl.synth.set('envelope', {decay: newDecay})\">{{newDecay}}\n\t\t\n\t\t<label>S</label>\n\t\t<input type=\"range\" min=\"0\" max=\"1\" ng-init=\"newSustain=1\" step=\"0.1\" ng-model=\"newSustain\" ng-change=\"$ctrl.synth.set('envelope', {sustain: newSustain})\">{{newSustain}}\n\t\t\n\t\t<label>R</label>\n\t\t<input type=\"range\" min=\"0\" max=\"10\" ng-init=\"newRelease=0.8\" step=\"0.1\" ng-model=\"newRelease\" ng-change=\"$ctrl.synth.set('envelope', {release: newRelease})\">{{newRelease}}\n\t</div>\n\t<!--<div>\n\t\t<label>Filter Type: {{filterType}}</label>\n\t\t<input type=\"radio\" value=\"highpass\" ng-model=\"filterType\" ng-change=\"$ctrl.setFilter(10000, filterType)\">\n\t\t<input type=\"radio\" value=\"lowpass\" ng-model=\"filterType\" ng-change=\"$ctrl.setFilter(10, filterType)\">\n\t\t<input type=\"radio\" value=\"bandpass\" ng-model=\"filterType\" ng-change=\"$ctrl.setFilter(800, filterType)\">\n\t</div>-->\n\t<div>\n\t\t<label>Portamento</label>\n\t\t<input type=\"range\" min=\"0\" max=\"2\" ng-init=\"newPorta=0.2\" step=\"0.1\" ng-model=\"newPorta\" ng-change=\"$ctrl.synth.set('portamento', newPorta)\">{{newPorta}}\n\t</div>\n\t<div class=\"keyboard\" ng-keydown=\"$ctrl.keyDown($event)\" ng-keyup=\"$ctrl.keyUp($event)\" tabindex=\"0\">\n\t\t<ul>\n\t\t\t<li ng-repeat=\"note in $ctrl.notes\" ng-mousedown=\"$ctrl.noteOn(note.note)\" ng-mouseup=\"$ctrl.noteOff(note.note)\">{{note.note}}</li>\n\t\t</ul>\n\t</div>\n\t<div>\n\t\t<ul class=\"column\" ng-repeat=\"array in $ctrl.sequenceMatrix\">\n\t\t\t<div class=\"cell\" ng-repeat=\"value in array track by $index\" ng-click=\"$ctrl.updateMatrix($parent.$index, $index);\">{{value}}</div>\n\t\t</ul>\n\n\n\t\t<button ng-click=\"$ctrl.startLoop()\">Start</button><button ng-click=\"$ctrl.stopLoop()\">Stop</button>\n\t</div>\n\t\n</div>\n";
+	module.exports = "<div ng-class=\"$ctrl.styles.synth\">\n\t<div id=\"panel\">\n\n\t\t<div id=\"panel-left\" class=\"panel-div\">\n\t\t\t<h4>Preset:</h4>\n\t\t\t<div id=\"Title\">{{$ctrl.patch.name}}</div>\n\t\t\t<form ng-submit=\"$ctrl.savePatch()\">\n\t\t\t\t<input type=\"text\" required ng-model=\"$ctrl.patch.name\">\n\t\t\t\t<button>Save</button>\n\t\t\t\t<p ng-if=\"$ctrl.loginPrompt\"> Sign in or sign up to save your setting and connect with other users</p>\n\t\t\t</form>\n\n\t\t\t<div ng-if=\"$ctrl.currentUser\">\n\t\t\t\t<button ng-if=\"$ctrl.patchSaved && $ctrl.upVoted === false\" ng-click=\"$ctrl.vote(1)\">upVote</button>\n\t\t\t\t<button ng-if=\"$ctrl.patchSaved && $ctrl.upVoted === true\" ng-click=\"$ctrl.vote(-1)\">downVote</button>\n\n\t\t\t\t<button ng-if=\"$ctrl.patchSaved && $ctrl.favorited === false\" ng-click=\"$ctrl.favorite()\">Favorite</button>\n\t\t\t\t<button ng-if=\"$ctrl.patchSaved && $ctrl.favorited === true\" ng-click=\"$ctrl.unfavorite()\">Unfavorite</button>\n\t\t\t</div>\n\n\t\t\t<label>My patches:</label>\n\t\t\t<select ng-options=\"patch.name for patch in $ctrl.userPatches\" ng-model=\"$ctrl.patch\" ng-change=\"$ctrl.setSynth()\"></select>\n\t\t\t<label>Favorite patches:</label>\n\t\t\t<select ng-options=\"favPatch.name for favPatch in $ctrl.favPatches\" ng-model=\"$ctrl.patch\" ng-change=\"$ctrl.setSynth()\"></select>\n\t\t</div>\n\n\t\t<div id=\"envelope\"  class=\"panel-div\" ng-mouseup=\"$ctrl.unFocus($event)\">\n\t\t\t<h4>Envelope:</h4>\n\t\t\t\tAttack: {{$ctrl.patch.settings.envelope.attack}}\n\t\t\t\t<input type=\"range\" min=\"0\" max=\"10\" step=\"0.1\" ng-model=\"$ctrl.patch.settings.envelope.attack\" ng-change=\"$ctrl.synth.set('envelope', {attack: $ctrl.patch.settings.envelope.attack})\">\n\t\t\t\tDecay: {{$ctrl.patch.settings.envelope.decay}}\n\t\t\t\t<input type=\"range\" min=\"0\" max=\"10\" step=\"0.1\" ng-model=\"$ctrl.patch.settings.envelope.decay\" ng-change=\"$ctrl.synth.set('envelope', {decay: $ctrl.patch.settings.envelope.decay})\">\n\t\t\t\tSustain: {{$ctrl.patch.settings.envelope.sustain}}\n\t\t\t\t<input type=\"range\" min=\"0\" max=\"1\"  step=\"0.1\" ng-model=\"$ctrl.patch.settings.envelope.sustain\" ng-change=\"$ctrl.synth.set('envelope', {sustain: $ctrl.patch.settings.envelope.sustain})\">\n\t\t\t\tRelease: {{$ctrl.patch.settings.envelope.release}}\n\t\t\t\t<input type=\"range\" min=\"0\" max=\"10\" step=\"0.1\" ng-model=\"$ctrl.patch.settings.envelope.release\" ng-change=\"$ctrl.synth.set('envelope', {release: $ctrl.patch.settings.envelope.release})\">\n\t\t</div>\n\t\t<div class=\"panel-div\">\n\t\t\t<h4>Filter type:</h4>\n\t\t\t<label><input type=\"radio\" value=\"lowpass\" ng-model=\"filterType\" ng-change=\"$ctrl.filter.set('type', filterType)\">Lowpass</label>\n\t\t\t<label><input type=\"radio\" value=\"bandpass\" ng-model=\"filterType\" ng-change=\"$ctrl.filter.set('type', filterType)\">Bandpass</label>\n\t\t\t<label><input type=\"radio\" value=\"highpass\" ng-model=\"filterType\" ng-change=\"$ctrl.filter.set('type', filterType)\">Highpass</label>\n\t\t\t<label><input type=\"radio\" value=\"allpass\" ng-model=\"filterType\" ng-change=\"$ctrl.filter.set('type', filterType)\">Allpass</label>\n\t\t</div>\n\t\t<div class=\"panel-div\" id=\"filter-control\">\n\t\t\t<h4>Filter Control:</h4>\n\t\t\tFrequency: {{filterFreq}}<input min=\"200\" max=\"5000\" step=\"100\" type=\"range\" value=\"filterFreq\" ng-model=\"filterFreq\" ng-change=\"$ctrl.filter.set('frequency', filterFreq)\">\n\t\t\tQ: {{filterQ}}<input type=\"range\" min=\"1\" max=\"20\" step=\"0.5\" value=\"Q\" ng-model=\"filterQ\" ng-change=\"$ctrl.filter.set('Q', filterQ)\">\n\t\t\t<h4>Comb Filter:</h4>\n\t\t\tComb Filter Delay: {{combFilterDelay}}<input type=\"range\" min=\"0.1\" max=\"1\" step=\"0.1\" value=\"combFilterDelay\" ng-model=\"combFilterDelay\" ng-change=\"$ctrl.combFilter.set('delayTime', combFilterDelay)\">\n\t\t\tComb Filter Resonance: {{filterResonance}}<input type=\"range\" min=\"0.1\" max=\"1\" step=\"0.1\" value=\"filterResonance\" ng-model=\"filterResonance\" ng-change=\"$ctrl.combFilter.set('resonance', filterResonance)\">\n\t\t</div>\n\t\t<div id=\"panel-right\" class=\"panel-div\">\n\t\t\t<h4>Waveform:</h4>\n\t\t\t<div id=\"waveform\">\n\t\t\t\t<input type=\"radio\" value=\"pwm\" ng-model=\"$ctrl.patch.settings.wave\" ng-change=\"$ctrl.synth.set({oscillator: {type: $ctrl.patch.settings.wave}})\">\n\t\t\t\t<input type=\"radio\" value=\"triangle\" ng-model=\"$ctrl.patch.settings.wave\" ng-change=\"$ctrl.synth.set({oscillator: {type: $ctrl.patch.settings.wave}})\">\n\t\t\t\t<input type=\"radio\" value=\"square\" ng-model=\"$ctrl.patch.settings.wave\" ng-change=\"$ctrl.synth.set({oscillator: {type: $ctrl.patch.settings.wave}})\">\n\t\t\t\t<input type=\"radio\" value=\"sawtooth\" ng-model=\"$ctrl.patch.settings.wave\" ng-change=\"$ctrl.synth.set({oscillator: {type: $ctrl.patch.settings.wave}})\">\n\t\t\t\t{{$ctrl.patch.settings.wave}}\n\t\t\t</div>\n\t\t\t<div id=\"portamento\">\n\t\t\t\t<h4>Portamento: </h4>{{$ctrl.patch.settings.portamento}}\n\t\t\t\t<input type=\"range\" min=\"0\" max=\"2\" step=\"0.1\" ng-model=\"$ctrl.patch.settings.portamento\" ng-change=\"$ctrl.synth.set('portamento', $ctrl.patch.settings.portamento)\">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"keyboard\">\n\t\t<ul>\n\t\t\t<li ng-repeat=\"note in $ctrl.notes\" ng-mousedown=\"$ctrl.noteOn(note.note)\" ng-mouseup=\"$ctrl.noteOff(note.note)\">{{note.note}}</li>\n\t\t</ul>\n\t</div>\n\t<div id=\"sequencer\">\n\t\t<ul class=\"column\" ng-repeat=\"array in $ctrl.sequenceMatrix\">\n\t\t\t<li ng-class=\"{cell: true, selected: value}\" ng-repeat=\"value in array track by $index\" ng-click=\"$ctrl.updateMatrix($parent.$index, $index);\">{{value}}</li>\n\t\t</ul>\n\t</div>\n\t<div id=\"seq-controls\">\n\t\t<button ng-click=\"$ctrl.startLoop()\">Start</button>\n\t\t<button ng-click=\"$ctrl.stopLoop()\">Stop</button>\n\t\t<label>{{$ctrl.bpm}} bpm\n\t\t\t<input type=\"range\" min=\"h4\" max=\"200\" ng-model=\"$ctrl.bpm\" ng-change=\"$ctrl.setBpm()\">\n\t\t</label>\n\t</div>\n</div>\n";
 
 /***/ },
-/* 19 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(20);
+	var content = __webpack_require__(28);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(13)(content, {});
@@ -56169,7 +56559,7 @@
 	}
 
 /***/ },
-/* 20 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(12)();
@@ -56177,13 +56567,15 @@
 	
 	
 	// module
-	exports.push([module.id, ".keyboard ul {\n  list-style-type: none;\n  font-size: 0.7em; }\n  .keyboard ul li {\n    text-align: center;\n    width: 35px;\n    height: 100px;\n    border: 2px solid black;\n    display: inline-block; }\n\n.keyboard li:nth-child(12n+2),\n.keyboard li:nth-child(12n+4),\n.keyboard li:nth-child(12n+7),\n.keyboard li:nth-child(12n+9),\n.keyboard li:nth-child(12n+11) {\n  background-color: black;\n  width: 20px;\n  color: white; }\n\n.keyboard li:nth-child(12n+6),\n.keyboard li:nth-child(12n+13) {\n  border-left: none; }\n\n.column {\n  display: inline-block;\n  padding: 0;\n  margin: 5px; }\n\n.cell {\n  height: 50px;\n  width: 50px;\n  margin-bottom: 5px;\n  background-color: rgba(255, 0, 0, 0.5); }\n\n.selected {\n  background-color: red; }\n\n.not-selected {\n  background-color: rgba(255, 0, 0, 0.5); }\n", "", {"version":3,"sources":["/./src/components/synth/src/components/synth/synth.scss"],"names":[],"mappings":"AAAA;EAEQ,sBAAqB;EACrB,iBAAgB,EAUnB;EAbL;IAMY,mBAAkB;IAClB,YAAW;IACX,cAAa;IACb,wBAAuB;IACvB,sBAAqB,EACxB;;AAXT;;;;;EAoBQ,wBAAuB;EACvB,YAAW;EACX,aAAY,EACf;;AAvBL;;EA2BQ,kBAAiB,EACpB;;AAGL;EACI,sBAAqB;EACrB,WAAU;EACV,YAAW,EACd;;AAED;EACI,aAAY;EACZ,YAAW;EACX,mBAAkB;EAClB,uCAAkC,EACrC;;AAED;EACI,sBAAqB,EACxB;;AAED;EACI,uCAAkC,EACrC","file":"synth.scss","sourcesContent":[".keyboard {\n    ul {\n        list-style-type: none;\n        font-size: 0.7em;\n\n        li {\n            text-align: center;\n            width: 35px;\n            height: 100px;\n            border: 2px solid black;\n            display: inline-block;\n        }\n\n    }\n\n    li:nth-child(12n+2),\n    li:nth-child(12n+4),\n    li:nth-child(12n+7),\n    li:nth-child(12n+9),\n    li:nth-child(12n+11) {\n        background-color: black;\n        width: 20px;\n        color: white;\n    }\n\n    li:nth-child(12n+6),\n    li:nth-child(12n+13) {\n        border-left: none;\n    }\n}\n\n.column {\n    display: inline-block;\n    padding: 0;\n    margin: 5px;\n}\n\n.cell {\n    height: 50px;\n    width: 50px;\n    margin-bottom: 5px;\n    background-color: rgba(255,0,0,.5);\n}\n\n.selected {\n    background-color: red; \n};\n\n.not-selected {\n    background-color: rgba(255,0,0,.5);\n}\n\n    // input[type=range] {\n    //     -webkit-appearance: slider-vertical;\n    // }"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "._34C4_2FvV8vVdWmjTYgDjR {\n  display: flex;\n  flex-direction: column;\n  margin: 0.5em;\n  padding: 0.5em;\n  border: 2px solid #666;\n  border-radius: 5px; }\n  ._34C4_2FvV8vVdWmjTYgDjR #panel {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: space-around;\n    font-size: 0.6em;\n    padding-top: 0.5em; }\n  ._34C4_2FvV8vVdWmjTYgDjR .panel-div {\n    display: flex;\n    flex-direction: column;\n    justify-content: flex-start;\n    border-right: 1px solid #eee;\n    padding-right: 2em;\n    margin-bottom: 1em; }\n  ._34C4_2FvV8vVdWmjTYgDjR .panel-div:last-of-type {\n    border: none; }\n  ._34C4_2FvV8vVdWmjTYgDjR .keyboard,\n  ._34C4_2FvV8vVdWmjTYgDjR #sequencer,\n  ._34C4_2FvV8vVdWmjTYgDjR #seq-controls {\n    margin-left: auto;\n    margin-right: auto; }\n  ._34C4_2FvV8vVdWmjTYgDjR .keyboard ul {\n    display: flex;\n    list-style-type: none;\n    font-size: 0.7em;\n    padding-left: 0; }\n    ._34C4_2FvV8vVdWmjTYgDjR .keyboard ul li {\n      text-align: center;\n      width: 35px;\n      height: 100px;\n      border: 2px solid black;\n      display: inline-block; }\n  ._34C4_2FvV8vVdWmjTYgDjR .keyboard li:nth-child(12n+2),\n  ._34C4_2FvV8vVdWmjTYgDjR .keyboard li:nth-child(12n+4),\n  ._34C4_2FvV8vVdWmjTYgDjR .keyboard li:nth-child(12n+7),\n  ._34C4_2FvV8vVdWmjTYgDjR .keyboard li:nth-child(12n+9),\n  ._34C4_2FvV8vVdWmjTYgDjR .keyboard li:nth-child(12n+11) {\n    background-color: black;\n    width: 20px;\n    color: white; }\n  ._34C4_2FvV8vVdWmjTYgDjR .keyboard li:nth-child(12n+6),\n  ._34C4_2FvV8vVdWmjTYgDjR .keyboard li:nth-child(12n+13) {\n    border-left: none; }\n  ._34C4_2FvV8vVdWmjTYgDjR .column {\n    display: inline-block;\n    padding: 0;\n    margin: 2px; }\n  ._34C4_2FvV8vVdWmjTYgDjR .cell {\n    list-style: none;\n    text-align: center;\n    height: 30px;\n    width: 30px;\n    margin-bottom: 4px;\n    background-color: #aaa;\n    box-shadow: inset rgba(128, 0, 0, 0.2) 0 -1px 1px 1px, inset #444 0 -1px 9px, inset #bbb 0 2px 14px;\n    color: transparent; }\n  ._34C4_2FvV8vVdWmjTYgDjR .selected {\n    background-color: #3fecff;\n    opacity: 0.2;\n    color: transparent;\n    box-shadow: inset rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #513fff 0 -1px 9px, inset #3F8CFF 0 2px 14px; }\n  ._34C4_2FvV8vVdWmjTYgDjR #sequencer {\n    display: flex; }\n  ._34C4_2FvV8vVdWmjTYgDjR #seq-controls {\n    font-size: 0.8em; }\n  ._34C4_2FvV8vVdWmjTYgDjR #seq-controls label {\n    margin-left: 5em; }\n  ._34C4_2FvV8vVdWmjTYgDjR h4 {\n    margin: 0 0 0.5em 0; }\n  ._34C4_2FvV8vVdWmjTYgDjR #portamento {\n    margin-top: 0.5em; }\n", "", {"version":3,"sources":["/./src/components/synth/src/components/synth/synth.scss","/./src/components/synth/src/scss/partials/_colors.scss"],"names":[],"mappings":"AAEA;EAEI,cAAa;EACb,uBAAsB;EACtB,cAAa;EACb,eAAc;EACd,uBCRe;EDSf,mBAAkB,EAgHrB;EAvHD;IAUQ,cAAa;IACb,gBAAe;IACf,8BAA6B;IAC7B,iBAAgB;IAChB,mBAAkB,EACrB;EAfL;IAkBQ,cAAa;IACb,uBAAsB;IACtB,4BAA2B;IAC3B,6BAA4B;IAC5B,mBAAkB;IAClB,mBAAkB,EACrB;EAxBL;IA2BQ,aAAY,EACf;EA5BL;;;IAiCQ,kBAAiB;IACjB,mBAAkB,EACrB;EAnCL;IAwCY,cAAa;IACb,sBAAqB;IACrB,iBAAgB;IAChB,gBAAe,EAUlB;IArDT;MA8CgB,mBAAkB;MAClB,YAAW;MACX,cAAa;MACb,wBAAuB;MACvB,sBAAqB,EACxB;EAnDb;;;;;IA4DY,wBAAuB;IACvB,YAAW;IACX,aAAY,EACf;EA/DT;;IAmEY,kBAAiB,EACpB;EApET;IAwEQ,sBAAqB;IACrB,WAAU;IACV,YAAW,EACd;EA3EL;IA8EQ,iBAAgB;IAChB,mBAAkB;IAClB,aAAY;IACZ,YAAW;IACX,mBAAkB;IAClB,uBAAsB;IACtB,oGAAmG;IACnG,mBAAkB,EACrB;EAtFL;IAyFQ,0BAAyB;IACzB,aAAY;IACZ,mBAAkB;IAClB,wGAAuG,EAC1G;EA7FL;IAgGQ,cAAa,EAChB;EAjGL;IAoGQ,iBAAgB,EACnB;EArGL;IAwGQ,iBAAgB,EACnB;EAzGL;IA4GQ,oBAAmB,EACtB;EA7GL;IAgHQ,kBAAiB,EACpB","file":"synth.scss","sourcesContent":["@import 'colors';\n\n:local(.synth) {\n\n    display: flex;\n    flex-direction: column;\n    margin: 0.5em;\n    padding: 0.5em;\n    border: 2px solid $border-color;\n    border-radius: 5px;\n\n    #panel {\n        display: flex;\n        flex-wrap: wrap;\n        justify-content: space-around;\n        font-size: 0.6em;\n        padding-top: 0.5em;\n    }\n\n    .panel-div {\n        display: flex;\n        flex-direction: column;\n        justify-content: flex-start;\n        border-right: 1px solid #eee;\n        padding-right: 2em;\n        margin-bottom: 1em;\n    }\n\n    .panel-div:last-of-type {\n        border: none;\n    }\n\n    .keyboard,\n    #sequencer,\n    #seq-controls {\n        margin-left: auto;\n        margin-right: auto;\n    }\n\n    .keyboard {\n\n        ul {\n            display: flex;\n            list-style-type: none;\n            font-size: 0.7em;\n            padding-left: 0;\n\n            li {\n                text-align: center;\n                width: 35px;\n                height: 100px;\n                border: 2px solid black;\n                display: inline-block;\n            }\n\n        }\n\n        li:nth-child(12n+2),\n        li:nth-child(12n+4),\n        li:nth-child(12n+7),\n        li:nth-child(12n+9),\n        li:nth-child(12n+11) {\n            background-color: black;\n            width: 20px;\n            color: white;\n        }\n\n        li:nth-child(12n+6),\n        li:nth-child(12n+13) {\n            border-left: none;\n        }\n    }\n\n    .column {\n        display: inline-block;\n        padding: 0;\n        margin: 2px;\n    }\n\n    .cell {\n        list-style: none;\n        text-align: center;\n        height: 30px;\n        width: 30px;\n        margin-bottom: 4px;\n        background-color: #aaa;\n        box-shadow: inset rgba(128, 0, 0, 0.2) 0 -1px 1px 1px, inset #444 0 -1px 9px, inset #bbb 0 2px 14px;\n        color: transparent;\n    }\n\n    .selected {\n        background-color: #3fecff; \n        opacity: 0.2;\n        color: transparent;\n        box-shadow: inset rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #513fff 0 -1px 9px, inset #3F8CFF 0 2px 14px;\n    };\n\n    #sequencer {\n        display: flex;\n    }\n\n    #seq-controls {\n        font-size: 0.8em;\n    }\n\n    #seq-controls label {\n        margin-left: 5em;\n    }\n\n    h4 {\n        margin: 0 0 0.5em 0;\n    }\n\n    #portamento {\n        margin-top: 0.5em;\n    }\n\n        // input[type=range] {\n        //     -webkit-appearance: slider-vertical;\n        // }\n\n}","$border-color: #666;\n$primary-color: #333;\n$secondary-color: #444;\n$hover-color: #A6F6FF;"],"sourceRoot":"webpack://"}]);
 	
 	// exports
-
+	exports.locals = {
+		"synth": "_34C4_2FvV8vVdWmjTYgDjR"
+	};
 
 /***/ },
-/* 21 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56192,45 +56584,94 @@
 	    value: true
 	});
 	
-	var _users = __webpack_require__(22);
+	var _user = __webpack_require__(30);
 	
-	var _users2 = _interopRequireDefault(_users);
+	var _user2 = _interopRequireDefault(_user);
 	
-	var _users3 = __webpack_require__(23);
+	var _user3 = __webpack_require__(31);
 	
-	var _users4 = _interopRequireDefault(_users3);
+	var _user4 = _interopRequireDefault(_user3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = {
-	    template: _users2.default,
+	    template: _user2.default,
 	    bindings: {
-	        id: '<'
+	        currentUser: '<',
+	        userData: '<'
 	    },
 	    controller: controller
 	};
 	
 	
-	controller.$inject = ['userService', 'authService'];
+	controller.$inject = ['userService', 'patchService'];
 	
-	function controller() {
-	    this.styles = _users4.default;
+	function controller(userService, patchService) {
+	    var _this = this;
+	
+	    this.styles = _user4.default;
+	    this.isMe = false;
+	
+	    this.$onInit = function () {
+	        _this.followed = false;
+	        if (_this.currentUser.id === _this.userData._id) {
+	            _this.isMe = true;
+	        }
+	        userService.getUserById(_this.currentUser.id).then(function (user) {
+	            user.followingId.forEach(function (obj) {
+	                if (obj._id === _this.userData._id) _this.followed = true;
+	            });
+	        });
+	    };
+	    this.follow = function () {
+	        _this.followed = true;
+	        userService.getUserById(_this.currentUser.id).then(function (user) {
+	            user.followingId.push(_this.userData._id);
+	            console.log('userData', _this.userData);
+	            userService.updateUser(_this.currentUser.id, user);
+	        }).then(function () {
+	            return userService.getUserById(_this.userData._id);
+	        }).then(function (user) {
+	            console.log(user);
+	            if (!user.followers) user.followers = 0;
+	            user.followers += 1;
+	            userService.updateUser(_this.userData._id, user);
+	        });
+	    };
+	
+	    this.unfollow = function () {
+	        _this.followed = false;
+	        userService.getUserById(_this.currentUser.id).then(function (user) {
+	            user.followingId.forEach(function (obj, index) {
+	                if (obj._id === _this.userData._id) {
+	                    user.followingId.splice(index, 1);
+	                }
+	            });
+	            userService.updateUser(_this.currentUser.id, user);
+	        });
+	    };
+	
+	    this.remove = function (patch) {
+	        patchService.remove(patch);
+	        var removedPatch = _this.userData.patchId.indexOf(patch);
+	        _this.userData.patchId.splice(removedPatch, 1);
+	    };
 	}
 
 /***/ },
-/* 22 */
+/* 30 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>User Profile</h1>\n<section>\n    <h2>Username: {{$ctrl.username}}</h2>\n    <div>\n        <h2>Patches</h2>\n\n    </div>\n    <div>\n        <h2>Users Followed</h2>\n        \n    </div>\n    <div>\n        <h2>Favorite Patches</h2>\n        \n    </div>\n</section>";
+	module.exports = "<section ng-class=\"$ctrl.styles.user\">\n    <h2>User Profile: {{$ctrl.userData.username}}</h2>\n    <button ng-if=\"!$ctrl.isMe && !$ctrl.followed\" ng-click=\"$ctrl.follow()\">Follow</button>\n    <button ng-if=\"!$ctrl.isMe && $ctrl.followed\" ng-click=\"$ctrl.unfollow()\">Unfollow</button>\n\n    <div>\n        <ul>\n            <h3>Patches</h3> \n            <li ng-repeat=\"patch in $ctrl.userData.patchId\"> <a ui-sref=\"patch({id: patch._id})\">{{patch.name}}</a> <button ng-if=\"$ctrl.isMe\" ng-click=\"$ctrl.remove(patch._id)\">Delete</button></li>\n        </ul>\n        <ul>\n            <h3>Users Followed</h3>\n            <li ng-repeat=\"user in $ctrl.userData.followingId\"><a ui-sref=\"user({id: user._id})\">{{user.username}}</a></li>\n        </ul>\n        <ul>\n            <h3>Favorite Patches</h3>\n            <li ng-repeat=\"fav in $ctrl.userData.favoriteId\"><a ui-sref=\"patch({id: fav._id})\">{{fav.name}}</a></li>\n        </ul>\n    </div>\n</section>";
 
 /***/ },
-/* 23 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(24);
+	var content = __webpack_require__(32);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(13)(content, {});
@@ -56239,8 +56680,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./users.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./users.scss");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./user.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js?sourceMap!./user.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -56250,7 +56691,7 @@
 	}
 
 /***/ },
-/* 24 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(12)();
@@ -56258,13 +56699,15 @@
 	
 	
 	// module
-	exports.push([module.id, "", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"users.scss","sourceRoot":"webpack://"}]);
+	exports.push([module.id, "._3FHB9AaQ2WudQ0ubDSA2Qy {\n  display: flex;\n  flex-direction: column;\n  text-align: center; }\n  ._3FHB9AaQ2WudQ0ubDSA2Qy h2 {\n    margin-bottom: 0.2em; }\n  ._3FHB9AaQ2WudQ0ubDSA2Qy div {\n    display: flex;\n    justify-content: space-around;\n    flex-wrap: wrap; }\n  ._3FHB9AaQ2WudQ0ubDSA2Qy ul {\n    list-style: none;\n    text-align: left;\n    padding-left: 0;\n    margin: 0; }\n    ._3FHB9AaQ2WudQ0ubDSA2Qy ul li {\n      padding-top: 0.2em;\n      padding-bottom: 0.2em;\n      font-size: 0.9em;\n      border-bottom: 1px solid #eee;\n      display: flex;\n      justify-content: space-between; }\n      ._3FHB9AaQ2WudQ0ubDSA2Qy ul li button {\n        font-size: 0.6em;\n        margin: 0.5em; }\n  ._3FHB9AaQ2WudQ0ubDSA2Qy a {\n    font-weight: 400;\n    text-decoration: none;\n    color: #444; }\n  ._3FHB9AaQ2WudQ0ubDSA2Qy a:hover {\n    color: #A6F6FF; }\n", "", {"version":3,"sources":["/./src/components/user/src/components/user/user.scss","/./src/components/user/src/scss/partials/_colors.scss"],"names":[],"mappings":"AAEA;EACI,cAAa;EACb,uBAAsB;EACtB,mBAAkB,EAyCrB;EA5CD;IAMQ,qBAAoB,EACvB;EAPL;IAUQ,cAAa;IACb,8BAA6B;IAC7B,gBAAe,EAClB;EAbL;IAgBQ,iBAAgB;IAChB,iBAAgB;IAChB,gBAAe;IACf,UAAS,EAeZ;IAlCL;MAsBY,mBAAkB;MAClB,sBAAqB;MACrB,iBAAgB;MAChB,8BAA6B;MAC7B,cAAa;MACb,+BAA8B,EAMjC;MAjCT;QA8BgB,iBAAgB;QAChB,cAAa,EAChB;EAhCb;IAoCQ,iBAAgB;IAChB,sBAAqB;IACrB,YCtCc,EDuCjB;EAvCL;IA0CQ,eCzCa,ED0ChB","file":"user.scss","sourcesContent":["@import 'colors';\n\n:local(.user) {\n    display: flex;\n    flex-direction: column;\n    text-align: center;\n\n    h2 {\n        margin-bottom: 0.2em;\n    }\n\n    div {\n        display: flex;\n        justify-content: space-around;\n        flex-wrap: wrap;\n    }\n\n    ul {\n        list-style: none;\n        text-align: left;\n        padding-left: 0;\n        margin: 0;\n\n        li {\n            padding-top: 0.2em;\n            padding-bottom: 0.2em;\n            font-size: 0.9em;\n            border-bottom: 1px solid #eee;\n            display: flex;\n            justify-content: space-between;\n\n            button {\n                font-size: 0.6em;\n                margin: 0.5em;\n            }\n        }\n    }\n    a {\n        font-weight: 400;\n        text-decoration: none;\n        color: $secondary-color;\n    }\n\n    a:hover {\n        color: $hover-color;\n    }\n}","$border-color: #666;\n$primary-color: #333;\n$secondary-color: #444;\n$hover-color: #A6F6FF;"],"sourceRoot":"webpack://"}]);
 	
 	// exports
-
+	exports.locals = {
+		"user": "_3FHB9AaQ2WudQ0ubDSA2Qy"
+	};
 
 /***/ },
-/* 25 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -64613,7 +65056,7 @@
 	//# sourceMappingURL=angular-ui-router.js.map
 
 /***/ },
-/* 26 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64636,7 +65079,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var context = __webpack_require__(27);
+	var context = __webpack_require__(35);
 	
 	var _module = _angular2.default.module('services', []);
 	
@@ -64648,13 +65091,15 @@
 	exports.default = _module.name;
 
 /***/ },
-/* 27 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./auth-service.js": 28,
-		"./token-service.js": 29,
-		"./user-service.js": 30
+		"./auth-service.js": 36,
+		"./patch-service.js": 37,
+		"./sequence-service.js": 38,
+		"./token-service.js": 39,
+		"./user-service.js": 40
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -64667,11 +65112,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 27;
+	webpackContext.id = 35;
 
 
 /***/ },
-/* 28 */
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64680,45 +65125,142 @@
 	    value: true
 	});
 	exports.default = authService;
-	authService.$inject = ['tokenService', '$http', 'apiUrl'];
+	authService.$inject = ['userService', 'tokenService', '$http', 'apiUrl', '$state', '$window'];
 	
-	function authService(tokenService, $http, apiUrl) {
-	    var currentUser = '';
+	function authService(userService, tokenService, $http, apiUrl, $state, $window) {
+	
+	    var currentUser = null;
 	    var currentToken = tokenService.get();
 	    if (currentToken) {
 	        $http.get(apiUrl + '/auth/verify').catch(function () {
-	            return tokenService.remove();
+	            tokenService.remove;
+	            $window.localStorage.removeItem('id');
+	            $window.localStorage.removeItem('username');
 	        });
 	    }
 	
-	    function credential(endpoint) {
+	    var credential = function credential(endpoint) {
 	        return function (credentials) {
 	            return $http.post(apiUrl + '/auth/' + endpoint, credentials).then(function (result) {
+	                currentUser = {};
+	                $window.localStorage.setItem('id', result.data.id);
+	                $window.localStorage.setItem('username', result.data.username);
 	                tokenService.set(result.data.token);
-	                console.log('hi from the authService, here is result.data', result.data);
-	                return currentUser = result.data;
+	                currentUser.id = result.data.id;
+	                currentUser.username = result.data.username;
+	                console.log(currentUser);
+	                return currentUser;
 	            }).catch(function (err) {
+	                console.log('catch', err);
 	                throw err.data;
 	            });
 	        };
-	    }
+	    };
 	
 	    return {
 	        isAuthenticated: function isAuthenticated() {
 	            return !!tokenService.get();
 	        },
 	        logout: function logout() {
-	            tokenService.remove();
+	            currentUser = null;
+	            userService.logout();
+	            $state.go('home');
 	        },
 	
 	        signin: credential('signin'),
 	        signup: credential('signup'),
-	        currentUser: currentUser
+	        get currentUser() {
+	            return currentUser;
+	        }
 	    };
 	}
 
 /***/ },
-/* 29 */
+/* 37 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = patchService;
+	patchService.$inject = ['$http', 'apiUrl'];
+	
+	function patchService($http, apiUrl) {
+	    return {
+	        getAll: function getAll(userId) {
+	            return $http.get(apiUrl + '/patchs?userId=' + userId).then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        get: function get(patchId) {
+	            return $http.get(apiUrl + '/patchs/' + patchId).then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        getRandom: function getRandom() {
+	            return $http.get(apiUrl + '/patchs/random').then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        getByVotes: function getByVotes() {
+	            return $http.get(apiUrl + '/patchs/votes').then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        getByFavs: function getByFavs() {
+	            return $http.get(apiUrl + '/patchs/favs').then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        add: function add(patch) {
+	            return $http.post(apiUrl + '/patchs', patch).then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        update: function update(patchId, updatedPatch) {
+	            return $http.put(apiUrl + '/patchs/' + patchId, updatedPatch).then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        remove: function remove(patchId) {
+	            return $http.delete(apiUrl + '/patchs/' + patchId).then(function (res) {
+	                return res.data;
+	            });
+	        }
+	    };
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = sequenceService;
+	sequenceService.$inject = ['$http', 'apiUrl'];
+	
+	function sequenceService($http, apiUrl) {
+	    return {
+	        get: function get(patchId) {
+	            return $http.get(apiUrl + '/sequences/by_patch/' + patchId).then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        add: function add(sequence) {
+	            return $http.post(apiUrl + '/sequences', sequence).then(function (res) {
+	                return res.data;
+	            });
+	        }
+	    };
+	}
+
+/***/ },
+/* 39 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64746,7 +65288,7 @@
 	}
 
 /***/ },
-/* 30 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64755,16 +65297,37 @@
 	    value: true
 	});
 	exports.default = userService;
-	userService.$inject = ['$http', 'apiUrl', 'authService'];
+	userService.$inject = ['$http', 'apiUrl', '$window'];
 	
-	function userService($http, apiUrl, authService) {
-	
-	    var id = authService.currentUser.id;
-	    console.log('id from userService,', id);
+	function userService($http, apiUrl, $window) {
 	
 	    return {
-	        getUserById: function getUserById() {
-	            return $http.get(apiUrl + '/users/' + id).then(function (res) {
+	        getCurrent: function getCurrent() {
+	            var currentUser = {};
+	            currentUser.id = $window.localStorage.getItem('id');
+	            currentUser.username = $window.localStorage.getItem('username');
+	            return currentUser;
+	        },
+	        logout: function logout() {
+	            $window.localStorage.removeItem('id');
+	            $window.localStorage.removeItem('username');
+	            $window.localStorage.removeItem('token');
+	        },
+	        getUserById: function getUserById(routeId) {
+	            return $http.get(apiUrl + '/users/' + routeId).then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        updateUser: function updateUser(userId, updatedUser) {
+	            return $http.put(apiUrl + '/users/' + userId, updatedUser);
+	        },
+	        getByFollowers: function getByFollowers() {
+	            return $http.get(apiUrl + '/users/followers').then(function (res) {
+	                return res.data;
+	            });
+	        },
+	        getRecent: function getRecent() {
+	            return $http.get(apiUrl + '/users/recent').then(function (res) {
 	                return res.data;
 	            });
 	        }
@@ -64772,7 +65335,7 @@
 	}
 
 /***/ },
-/* 31 */
+/* 41 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64788,32 +65351,115 @@
 	    $stateProvider.state({
 	        name: 'home',
 	        url: '/',
-	        component: 'app'
-	    });
-	
-	    // $stateProvider.state({
-	    //     name: 'login',
-	    //     url: '/login',
-	    //     component: 'login'
-	    // });
-	
-	    $stateProvider.state({
-	        name: 'users',
-	        url: '/users',
 	        resolve: {
-	            user: ['authService', function (user) {
-	                console.log('hi from the user stateProvider. user:', user);
-	                return user.currentUser.id;
+	            currentUser: ['authService', 'userService', function (auth, user) {
+	                if (auth.isAuthenticated()) {
+	                    return user.getCurrent();
+	                }
+	            }],
+	            userPatches: ['currentUser', 'patchService', function (currentUser, patchService) {
+	                if (currentUser) {
+	                    return patchService.getAll(currentUser.id);
+	                }
+	            }],
+	            userData: ['currentUser', 'userService', function (currentUser, userService) {
+	                if (currentUser) {
+	                    return userService.getUserById(currentUser.id);
+	                }
+	            }],
+	            favPatches: ['currentUser', 'userData', function (currentUser, userData) {
+	                if (currentUser) {
+	                    return userData.favoriteId;
+	                }
 	            }]
 	        },
-	        component: 'users'
+	        component: 'synth'
+	    });
+	
+	    $stateProvider.state({
+	        name: 'patch',
+	        url: '/patch/:id',
+	        resolve: {
+	            currentUser: ['authService', 'userService', function (auth, user) {
+	                if (auth.isAuthenticated()) {
+	                    return user.getCurrent();
+	                }
+	            }],
+	            loadedPatch: ['patchService', '$transition$', function (patchService, t) {
+	                return patchService.get(t.params().id).then(function (patch) {
+	                    return patch;
+	                });
+	            }],
+	            userPatches: ['currentUser', 'patchService', function (currentUser, patchService) {
+	                if (currentUser) {
+	                    return patchService.getAll(currentUser.id);
+	                }
+	            }],
+	            userData: ['currentUser', 'userService', function (currentUser, userService) {
+	                if (currentUser) {
+	                    return userService.getUserById(currentUser.id);
+	                }
+	            }],
+	            favPatches: ['currentUser', 'userData', function (currentUser, userData) {
+	                if (currentUser) {
+	                    return userData.favoriteId;
+	                }
+	            }]
+	        },
+	        component: 'synth'
+	    });
+	
+	    $stateProvider.state({
+	        name: 'about',
+	        url: '/about',
+	        component: 'about'
+	    });
+	
+	    $stateProvider.state({
+	        name: 'user',
+	        url: '/user/:id',
+	        resolve: {
+	            currentUser: ['authService', 'userService', function (auth, user) {
+	                if (auth.isAuthenticated()) {
+	                    return user.getCurrent();
+	                }
+	            }],
+	            userData: ['userService', '$transition$', function (userService, t) {
+	                return userService.getUserById(t.params().id);
+	            }]
+	        },
+	        component: 'user'
+	    });
+	
+	    $stateProvider.state({
+	        name: 'social',
+	        url: '/social',
+	        resolve: {
+	            favs: ['patchService', function (patchService) {
+	                return patchService.getByFavs();
+	            }],
+	            votes: ['patchService', function (patchService) {
+	                return patchService.getByVotes();
+	            }],
+	            userFollows: ['userService', function (userService) {
+	
+	                return userService.getByFollowers();
+	            }],
+	            recentUsers: ['userService', function (userService) {
+	                return userService.getRecent();
+	            }],
+	            randomPatches: ['patchService', function (patchService) {
+	                return patchService.getRandom();
+	            }]
+	        },
+	        component: 'social'
 	    });
 	
 	    $urlRouterProvider.otherwise('/');
 	}
 
 /***/ },
-/* 32 */
+/* 42 */
 /***/ function(module, exports) {
 
 	/**
@@ -64912,6 +65558,87 @@
 	
 	
 	})(window.angular);
+
+/***/ },
+/* 43 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = configHttp;
+	configHttp.$inject = ['$httpProvider'];
+	
+	function configHttp($httpProvider) {
+	    $httpProvider.interceptors.push(interceptor);
+	}
+	
+	interceptor.$inject = ['$window', 'tokenService', '$state'];
+	
+	function interceptor($window, tokenService, $state) {
+	
+	    return {
+	        request: function request(config) {
+	            config.headers = config.headers || {};
+	            var token = tokenService.get();
+	
+	            if (token) {
+	                config.headers.authorization = '' + token;
+	            }
+	
+	            return config;
+	        },
+	        responseError: function responseError(response) {
+	            if (response.status == 403) {
+	                tokenService.remove();
+	                $state.go('home');
+	            }
+	            return Promise.reject(response);
+	        }
+	    };
+	}
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(45);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(13)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/sass-loader/index.js?sourceMap!./main.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/sass-loader/index.js?sourceMap!./main.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(12)();
+	// imports
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Monoton|Ubuntu+Mono:400,700);", ""]);
+	
+	// module
+	exports.push([module.id, "button {\n  color: #000;\n  background-color: #fff;\n  border-radius: 3px;\n  font-size: 0.7em;\n  border: 2px solid #666;\n  margin: 0.5em auto; }\n\nbutton:active {\n  background-color: #555;\n  color: #fff;\n  border-color: #fff; }\n\nbody {\n  font-family: \"Ubuntu Mono\", monospace;\n  margin: 0;\n  color: #333; }\n\nh2 {\n  color: #444; }\n", "", {"version":3,"sources":["/./src/scss/src/scss/partials/_buttons.scss","/./src/scss/src/scss/partials/_colors.scss","/./src/scss/src/scss/main.scss","/./src/scss/src/scss/partials/_fonts.scss"],"names":[],"mappings":"AAEA;EACI,YAAW;EACX,uBAAsB;EACtB,mBAAkB;EAClB,iBAAgB;EAChB,uBCPe;EDQf,mBAAkB,EACjB;;AAEL;EACI,uBAAsB;EACtB,YAAW;EACX,mBAAkB,EACrB;;AEZD;EACI,sCCHmC;EDInC,UAAS;EACT,YDLgB,ECMnB;;AAED;EACI,YDRkB,ECSrB","file":"main.scss","sourcesContent":["@import 'colors';\n\nbutton {\n    color: #000;\n    background-color: #fff;\n    border-radius: 3px;\n    font-size: 0.7em;\n    border: 2px solid $border-color;\n    margin: 0.5em auto;\n    }\n\nbutton:active {\n    background-color: #555;\n    color: #fff;\n    border-color: #fff;\n}","$border-color: #666;\n$primary-color: #333;\n$secondary-color: #444;\n$hover-color: #A6F6FF;","@import url('https://fonts.googleapis.com/css?family=Monoton|Ubuntu+Mono:400,700');\n@import 'fonts', 'buttons';\n\nbody {\n    font-family: $primary-font;\n    margin: 0;\n    color: $primary-color;\n}\n\nh2 {\n    color: $secondary-color;\n}","$display-font: 'Monoton', cursive;\n$primary-font: 'Ubuntu Mono', monospace;"],"sourceRoot":"webpack://"}]);
+	
+	// exports
+
 
 /***/ }
 /******/ ]);
