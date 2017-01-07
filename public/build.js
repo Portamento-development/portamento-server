@@ -33649,7 +33649,7 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<section ng-class=\"$ctrl.styles.about\">\n  <div id=\"top\">\n    <div id=\"instructions\">\n      <h2>Instructions</h2>\n      <h3>Synthesizer</h3>\n      <h4>Playing</h4>\n      <p>You can play the synthesizer using either the top two rows of your Qwerty keyboard (the \"F\" key is mapped to the note \"F3\") or by turning on and off boxes on the grid. To start playing your sequence, simply hit start or navigate to another tab.</p>\n      <h4>Settings</h4>\n      <h5>Envelope</h5>\n      <p>Use the Sliders in the envelope section to adjust the attack, decay, sustain, decay, and release of your sound. For a in-depth explanation of what the parameters do, read this <a href=\"https://en.wikipedia.org/wiki/Synthesizer#Attack_Decay_Sustain_Release_.28ADSR.29_envelope\">article</a>.</p>\n      <h5>Portamento, Waveform, and Filters</h5>\n      <p>Use the portamento slider to adjust the amount of time it takes for one note to slide to the next. Toggling the waveform with the radio buttons changes the fundamental shape of your sound's wave. You can also decide which frequencies to cut from your sound toggling between the filter types. Adjusting the filter frequency slider determines which frequencies will be attenuated, and adjusting the Q determines the amount of attenuation.</p>\n      <h4>Saving/Loading</h4>\n      <p>Once you have settings that you like, you can save your \"patch\" along with any sequence you have written for it. You can also load any of your previously saved or favorited settings with the dropdowns below the save button. It is important to note that loading your own settings does not change the sequence. This allows you to test a sequence with any of your presets. However, loading a patch from the community or user page will load that setting's default sequence.</p>\n      <h3>Community</h3>\n      <p>Community will show you other patches and users ranked by popularity, most recent, random, etc. Clicking the patch's name will load it into the synth. Clicking on a user's name will load their profile.</p>\n    </div>\n    <div id=\"aboutus\">\n      <h2>About Us</h2>\n      <p>Portamento is a synth and sequencer social site that provides users with the ability to create and share settings (patches) and sequences. This project was written using the MEAN stack and the <a href=\"https://github.com/Tonejs/Tone.js\" target=\"_blank\">Tone.js</a> Web Audio library. The following team of developers created and maintain the site. Visit our <a href=\"https://github.com/Portamento-development\" target=\"_blank\">Github</a> to view the source code.\n      </p>\n    </div>\n  </div>\n  <ul id=\"bios\">\n    <li>\n      <h4>Andy Beers</h4>\n      <img src=\"images/andy.png\" alt=\"andy beers\">\n      <p>Full-stack javascript developer who fondly remembers mashing buttons on synthesizers in his youth. As a former cafe manager, Andy has a deep love of collaboration, user feedback, and fruity coffee.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/andybeers\" target=\"_blank\">Github</a></li>\n        <li><a href=\"https://www.linkedin.com/in/andrew-beers\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n    </li>\n\n    <li>\n      <h4>Tim Combs</h4>\n      <img src=\"images/tcombs.png\" alt=\"tim combs\">\n      <p>Now a full-stack javascript developer, Tim has Bachelor degrees in Social Sciences and Physical Sciences, a Master's in Cultural Studies and a certificate in Digital Marketing Strategies. He has a background of balancing work in the arts with sustainbility education and non-profit program management.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/timcombs\" target=\"_blank\">Github</a></li>\n        <li><a href=\"Profilehttps://www.linkedin.com/in/timothycombs\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n\n    <li>\n      <h4>William Nickerson</h4>\n      <img src=\"images/wnickerson.png\" alt=\"William Nickerson\">\n      <p>A full-stack JavaScript Developer and Mathematics wizard from Durham, North Carolina. Currently looking to start a career in music technology.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/willnickerson\" target=\"_blank\">Github</a></li>\n        <li><a href=\"https://www.linkedin.com/in/william-nickerson-439976103/\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n    </li>\n\n    <li>\n      <h4>Niilo Smeds</h4>\n      <img src=\"images/nsmeds.png\" alt=\"Niilo Smeds\">\n      <p>A full-stack JavaScript developer from Portland with a background in music and concert lighting design.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/nsmeds\" target=\"_blank\">Github</a></li>\n        <li><a href=\"https://www.linkedin.com/in/niilo-smeds-4a0605120\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n    </li>\n\n    <li>\n      <h4>Tom Timmel</h4>\n      <img src=\"images/ttimmel.png\" alt=\"Tom Timmel\">\n      <p>Tom Timmel is new to the world of coding. He comes from a business management background working mostly in tourism in Alaska. Tom has a Bachelors degree in Business Administration from Bowling Green State University and a Master's degree in Inclusive Education from Nazareth College in Rochester, N.Y. Tom is happiest when he is outdoors during any season hiking, skiing, paddling, or playing Ultimate. Check out the following links for more information.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/TomTimmel\" target=\"_blank\">Github</a></li>\n        <li><a href=\"https://www.linkedin.com/in/tom-timmel-896263122?trk=nav_responsive_tab_profile\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n    </li>\n  </ul>\n</section>";
+	module.exports = "<section ng-class=\"$ctrl.styles.about\">\n  <div id=\"top\">\n    <div id=\"instructions\">\n      <h2>Instructions</h2>\n      <h3>Synthesizer</h3>\n      <h4>Playing</h4>\n      <p>You can play the synthesizer using either the top two rows of your Qwerty keyboard (the \"F\" key is mapped to the note \"F3\") or by turning on and off boxes on the grid. To start playing your sequence, simply hit start or navigate to another tab.</p>\n      <h4>Settings</h4>\n      <h5>Envelope</h5>\n      <p>Use the Sliders in the envelope section to adjust the attack, decay, sustain, decay, and release of your sound. For a in-depth explanation of what the parameters do, read this <a href=\"https://en.wikipedia.org/wiki/Synthesizer#Attack_Decay_Sustain_Release_.28ADSR.29_envelope\">article</a>.</p>\n      <h5>Portamento, Waveform, and Filters</h5>\n      <p>Use the portamento slider to adjust the amount of time it takes for one note to slide to the next. Toggling the waveform with the radio buttons changes the fundamental shape of your sound's wave. You can also decide which frequencies to cut from your sound toggling between the filter types. Adjusting the filter frequency slider determines which frequencies will be attenuated, and adjusting the Q determines the amount of attenuation.</p>\n      <h4>Saving/Loading</h4>\n      <p>Once you have settings that you like, you can save your \"patch\" along with any sequence you have written for it. You can also load any of your previously saved or favorited settings with the dropdowns below the save button. It is important to note that loading your own settings does not change the sequence. This allows you to test a sequence with any of your presets. However, loading a patch from the community or user page will load that setting's default sequence.</p>\n      <h3>Community</h3>\n      <p>Community will show you other patches and users ranked by popularity, most recent, random, etc. Clicking the patch's name will load it into the synth. Clicking on a user's name will load their profile.</p>\n    </div>\n    <div id=\"aboutus\">\n      <h2>About Us</h2>\n      <p>Portamento is a synth and sequencer social site that provides users with the ability to create and share settings (patches) and sequences. This project was written using the MEAN stack and the <a href=\"https://github.com/Tonejs/Tone.js\" target=\"_blank\">Tone.js</a> Web Audio library. The following team of developers created and maintain the site. Visit our <a href=\"https://github.com/Portamento-development\" target=\"_blank\">Github</a> to view the source code.\n      </p>\n    </div>\n  </div>\n  <ul id=\"bios\">\n    <li>\n      <h4>Andy Beers</h4>\n      <img src=\"images/andy.png\" alt=\"andy beers\">\n      <p>Full-stack JavaScript developer who fondly remembers mashing buttons on synthesizers in his youth. As a former cafe manager, Andy has a deep love of collaboration, user feedback, and fruity coffee.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/andybeers\" target=\"_blank\">Github</a></li>\n        <li><a href=\"https://www.linkedin.com/in/andrew-beers\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n    </li>\n\n    <li>\n      <h4>Tim Combs</h4>\n      <img src=\"images/tcombs.png\" alt=\"tim combs\">\n      <p>Now a full-stack JavaScript developer, Tim has Bachelor degrees in Social Sciences and Physical Sciences, a Master's in Cultural Studies and a certificate in Digital Marketing Strategies. He has a background of balancing work in the arts with sustainability education and non-profit program management.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/timcombs\" target=\"_blank\">Github</a></li>\n        <li><a href=\"Profilehttps://www.linkedin.com/in/timothycombs\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n\n    <li>\n      <h4>William Nickerson</h4>\n      <img src=\"images/wnickerson.png\" alt=\"William Nickerson\">\n      <p>A full-stack JavaScript Developer and Mathematics wizard from Durham, North Carolina. Currently looking to start a career in music technology.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/willnickerson\" target=\"_blank\">Github</a></li>\n        <li><a href=\"https://www.linkedin.com/in/william-nickerson-439976103/\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n    </li>\n\n    <li>\n      <h4>Niilo Smeds</h4>\n      <img src=\"images/nsmeds.png\" alt=\"Niilo Smeds\">\n      <p>A full-stack JavaScript developer based in Portland with a background in music and concert lighting design. He has a B.A. in English (Creative Writing emphasis) from San Francisco State University.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/nsmeds\" target=\"_blank\">Github</a></li>\n        <li><a href=\"https://www.linkedin.com/in/niilo-smeds-4a0605120\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n    </li>\n\n    <li>\n      <h4>Tom Timmel</h4>\n      <img src=\"images/ttimmel.png\" alt=\"Tom Timmel\">\n      <p>Tom Timmel is new to the world of coding. He comes from a business management background working mostly in tourism in Alaska. Tom has a Bachelors degree in Business Administration from Bowling Green State University and a Master's degree in Inclusive Education from Nazareth College in Rochester, N.Y. Tom is happiest when he is outdoors during any season hiking, skiing, paddling, or playing Ultimate. Check out the following links for more information.</p>\n      <ul class=\"author-links\">\n        <li><a href=\"https://github.com/TomTimmel\" target=\"_blank\">Github</a></li>\n        <li><a href=\"https://www.linkedin.com/in/tom-timmel-896263122?trk=nav_responsive_tab_profile\" target=\"_blank\">LinkedIn</a></li>\n      </ul> \n    </li>\n  </ul>\n</section>";
 
 /***/ },
 /* 10 */
@@ -34047,7 +34047,6 @@
 	        };
 	        if (_this.action === 'signup') {
 	            authService.signup(_this.credentials).then(function (res) {
-	                console.log('signed up as', res);
 	                _this.currentUser = res;
 	                _this.badUsername = false;
 	                $state.reload('home');
@@ -34056,7 +34055,6 @@
 	            });
 	        } else if (_this.action === 'signin') {
 	            authService.signin(_this.credentials).then(function (res) {
-	                console.log('signed in as', res);
 	                _this.currentUser = res;
 	                _this.badSignin = false;
 	
@@ -34068,7 +34066,6 @@
 	    };
 	
 	    this.logout = function () {
-	        console.log('logging out');
 	        authService.logout();
 	        _this.currentUser = null;
 	        $state.reload('home');
@@ -34155,7 +34152,6 @@
 	    this.$onInit = function () {
 	        if (auth.isAuthenticated()) {
 	            _this.currentUser = user.getCurrent();
-	            console.log('current user: ', _this.currentUser);
 	        }
 	    };
 	}
@@ -34201,9 +34197,7 @@
 	
 	
 	function controller() {
-	    this.$onInit = function () {
-	        console.log('votes', this.votes);
-	    };
+	
 	    this.styles = _social4.default;
 	}
 
@@ -34358,7 +34352,6 @@
 	            },
 	            portamento: _this.patch.settings.portamento
 	        });
-	        // this.loadSequence(this.patch._id);
 	    };
 	
 	    this.savePatch = function () {
@@ -34398,12 +34391,11 @@
 	
 	    this.vote = function (number) {
 	        if (_this.upVoted === false) _this.upVoted = true;else _this.upVoted = false;
-	        console.log(_this.upVoted, _this.patchSaved);
 	        if (!_this.patch.votes) _this.patch.votes = 0;
 	        _this.patch.votes += number;
-	        patchService.update(_this.patch._id, _this.patch).then(function (res) {
-	            return console.log(res);
-	        }).catch(function (error) {
+	        patchService.update(_this.patch._id, _this.patch)
+	        // .then(res => console.log(res))
+	        .catch(function (error) {
 	            return console.log('error at upvoting', error);
 	        });
 	    };
@@ -34412,12 +34404,9 @@
 	        _this.favorited = true;
 	        if (!_this.patch.favorites) _this.patch.favorites = 0;
 	        _this.patch.favorites += 1;
-	        console.log(_this.patch);
 	        patchService.update(_this.patch._id, _this.patch).then(function (res) {
 	            _this.favPatches.push(res);
-	            console.log('in first then');
 	            userService.getUserById(_this.currentUser.id).then(function (user) {
-	                console.log('user', user);
 	                user.favoriteId.push(_this.patch._id);
 	                userService.updateUser(_this.currentUser.id, user);
 	            });
@@ -34520,25 +34509,17 @@
 	        if (this.sequenceMatrix[col][row] === 1) this.sequenceMatrix[col][row] = 0;else this.sequenceMatrix[col][row] = 1;
 	    };
 	
-	    this.toggleSelect = function () {
-	        console.log('hit');
-	    };
-	
 	    this.sequenceMatrix = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
 	
 	    var notes = ['F#3', 'E3', 'C#3', 'A3'];
-	    // let lastNote = null;
 	
 	    var loop = new _tone2.default.Sequence(function (time, col) {
-	        // if(lastNote) {
 	        _this.synth.releaseAll();
-	        // }
 	        var column = _this.sequenceMatrix[col];
 	        for (var i = 0; i < column.length; i++) {
 	            if (column[i] === 1) {
 	                var vel = Math.random() * 0.5 + 0.5;
 	                _this.synth.triggerAttack(notes[i], time, vel);
-	                // lastNote = notes[i];
 	            }
 	        }
 	    }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], '16n');
@@ -34589,7 +34570,6 @@
 	        if (!fired[$event.keyCode]) {
 	            fired[$event.keyCode] = true;
 	            $event.preventDefault();
-	            //console.log('2nd', )
 	            var note = this.notes.find(function (n) {
 	                return n.keyCode === $event.keyCode;
 	            });
@@ -56636,12 +56616,10 @@
 	        _this.followed = true;
 	        userService.getUserById(_this.currentUser.id).then(function (user) {
 	            user.followingId.push(_this.userData._id);
-	            console.log('userData', _this.userData);
 	            userService.updateUser(_this.currentUser.id, user);
 	        }).then(function () {
 	            return userService.getUserById(_this.userData._id);
 	        }).then(function (user) {
-	            console.log(user);
 	            if (!user.followers) user.followers = 0;
 	            user.followers += 1;
 	            userService.updateUser(_this.userData._id, user);
@@ -65160,7 +65138,6 @@
 	                tokenService.set(result.data.token);
 	                currentUser.id = result.data.id;
 	                currentUser.username = result.data.username;
-	                console.log(currentUser);
 	                return currentUser;
 	            }).catch(function (err) {
 	                console.log('catch', err);
