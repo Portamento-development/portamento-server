@@ -17,10 +17,8 @@ describe('Patch CRUD routes', () => {
             .post('/api/patchs')
             .send(fakePatch)
             .then(res => {
-                console.log('res', res.body);
                 fakePatch.__v = res.body.__v;
                 fakePatch._id = res.body._id;
-                console.log('fakePatch', fakePatch);
                 assert.deepEqual(res.body, fakePatch);
                 done();
             })
