@@ -2,16 +2,23 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const assert = chai.assert;
 chai.use(chaiHttp);
-const app = require('../lib/app');
+const app = require('../../lib/app');
 const request = chai.request(app);
 
 describe('User signup/signin', () => {
 
+    let goodToken = '';
+    let goodUser = {
+        username: 'test',
+        password: 'test'
+    };
+
     it('Signs up a user', done => {
         request
             .post('/api/auth/signup')
-            .send({ username: 'test', password: 'test' })
+            .send(goodUser)
             .then(res => {
+                goodToken = res.body.token;
                 assert.equal(res.status, 200);
                 assert.isOk(res.body);
                 assert.equal(res.body.username, 'test');
@@ -52,7 +59,7 @@ describe('User signup/signin', () => {
     it('Signs users in', done => {
         request
             .post('/api/auth/signin')
-            .send({ username: 'test', password: 'test' })
+            .send(goodUser)
             .then(res => {
                 assert.equal(res.status, 200);
                 assert.isOk(res.body);
@@ -76,7 +83,7 @@ describe('User signup/signin', () => {
             });
     });
 
-    it('Rejects unused username in signin', done => {
+    it('Rejects bad username in signin', done => {
         request
             .post('/api/auth/signin')
             .send({ username: 'wrongUser', password: 'test' })
@@ -102,6 +109,45 @@ describe('User signup/signin', () => {
                 assert.equal(err.response.body.error, 'Username test already exists');
                 done();
             });
+    });
+
+    it('Rejects verify if no token provided', done => {
+        request
+            .get('/api/auth/verify')
+            .then(() => {
+                done('Should not be status 200');
+            })
+            .catch(err => {
+                assert.equal(err.status, 400);
+                assert.equal(err.response.body.error, 'Unauthorized, no token provided');
+                done();
+            });
+    });
+
+    it('Rejects verify if bad token', done => {
+        request
+            .get('/api/auth/verify')
+            .set('authorization', 'badToken')
+            .then(() => {
+                done('Should not be status 200');
+            })
+            .catch(err => {
+                assert.equal(err.status, 403);
+                assert.equal(err.response.body.error, 'Unauthorized, bad token');
+                done();
+            });
+    });
+
+    it('Verifies good tokens', done => {
+        request
+            .get('/api/auth/verify')
+            .set('authorization', goodToken)
+            .then(res => {
+                assert.equal(res.status, 200);
+                assert.equal(res.body.success, true);
+                done();
+            })
+            .catch(done);
     });
 
 });
