@@ -34566,26 +34566,26 @@
 	        var target = $event.target;
 	        if (target.tagName.toLowerCase() === 'input' && target.type === 'text') return;
 	        if (target.tagName.toLowerCase() === 'input' && target.type === 'password') return;
-	        if ($event.altKey || $event.ctrlKey || $event.metaKey) return;
+	        // if ($event.altKey || $event.ctrlKey || $event.metaKey) return;
 	        if (!fired[$event.keyCode]) {
 	            fired[$event.keyCode] = true;
 	            $event.preventDefault();
 	            var note = this.notes.find(function (n) {
 	                return n.keyCode === $event.keyCode;
 	            });
-	            this.noteOn(note.note);
+	            if (note) this.noteOn(note.note);
 	        }
 	    };
 	
 	    this.keyUp = function ($event) {
-	        if ($event.keyCode === 91 || $event.keyCode === 18 || $event.keyCode === 17 || $event.keyCode === 93) return;
+	        // if (($event.keyCode === 91) || ($event.keyCode === 18) || ($event.keyCode === 17) || ($event.keyCode === 93)) return;
 	        fired[$event.keyCode] = false;
 	        $event.preventDefault();
 	        //following line works
 	        var note = this.notes.find(function (n) {
 	            return n.keyCode === $event.keyCode;
 	        });
-	        this.noteOff(note.note);
+	        if (note) this.noteOff(note.note);
 	    };
 	
 	    this.keyDownHandler = this.keyDown.bind(this);
