@@ -1,3 +1,4 @@
+https://travis-ci.org/andybeers/portamento-server.svg?branch=master
 # Portamento 
 ## a synthesizer & sequencer social sharing site.
 ### site url: https://portamento.herokuapp.com
