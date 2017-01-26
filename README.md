@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Portamento-development/portamento-server.svg?branch=master)](https://travis-ci.org/Portamento-development/portamento-server)
+
 # Portamento 
 ## a synthesizer & sequencer social sharing site.
 ### site url: https://portamento.herokuapp.com
