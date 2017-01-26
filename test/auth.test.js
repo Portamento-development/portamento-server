@@ -10,7 +10,7 @@ describe('User signup/signin', () => {
     it('Signs up a user', done => {
         request
             .post('/api/auth/signup')
-            .send({ username: 'test', password: 'test' })
+            .send({ username: 'test', password: 'testPW' })
             .then(res => {
                 assert.equal(res.status, 200);
                 assert.isOk(res.body);
@@ -52,7 +52,7 @@ describe('User signup/signin', () => {
     it('Signs users in', done => {
         request
             .post('/api/auth/signin')
-            .send({ username: 'test', password: 'test' })
+            .send({ username: 'test', password: 'testPW' })
             .then(res => {
                 assert.equal(res.status, 200);
                 assert.isOk(res.body);
@@ -79,7 +79,7 @@ describe('User signup/signin', () => {
     it('Rejects unused username in signin', done => {
         request
             .post('/api/auth/signin')
-            .send({ username: 'wrongUser', password: 'test' })
+            .send({ username: 'wrongUser', password: 'testPW' })
             .then(() => {
                 done('Should not be status 200.');
             })
