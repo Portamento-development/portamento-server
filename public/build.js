@@ -34573,7 +34573,7 @@
 	            var note = this.notes.find(function (n) {
 	                return n.keyCode === $event.keyCode;
 	            });
-	            this.noteOn(note.note);
+	            if (note) this.noteOn(note.note);
 	        }
 	    };
 	
@@ -34585,7 +34585,7 @@
 	        var note = this.notes.find(function (n) {
 	            return n.keyCode === $event.keyCode;
 	        });
-	        this.noteOff(note.note);
+	        if (note) this.noteOff(note.note);
 	    };
 	
 	    this.keyDownHandler = this.keyDown.bind(this);

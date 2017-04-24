@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "pretest": "npm run lint",
-    "test": "MONGODB_URI=mongodb://localhost/portamento-test mocha",
+    "test": "MONGODB_URI=mongodb://localhost/portamento-test mocha --recursive",
     "test:run": "mocha",
     "test:watch": "npm run test:run -- -w",
     "start": "node server.js",
