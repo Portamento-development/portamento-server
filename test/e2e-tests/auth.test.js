@@ -86,7 +86,7 @@ describe('User signup/signin', () => {
     it('Rejects bad username in signin', done => {
         request
             .post('/api/auth/signin')
-            .send({ username: 'wrongUser', password: 'test' })
+            .send({ username: 'wrongUser', password: 'testPW' })
             .then(() => {
                 done('Should not be status 200.');
             })
